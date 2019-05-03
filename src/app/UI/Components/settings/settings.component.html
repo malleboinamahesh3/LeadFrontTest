@@ -1,0 +1,839 @@
+
+
+<form [formGroup]="SettingsForm" (ngSubmit)="onSubmit()">
+<div class="container float-left">
+
+  <ul class="nav nav-tabs funnel-tabs pt-4" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="fresh-tab" data-toggle="tab" href="#fresh" role="tab" aria-controls="fresh"
+        aria-selected="true">Manage team</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="hot-tab" data-toggle="tab" href="#hot" role="tab" aria-controls="hot"
+        aria-selected="false">Manage data</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="warm-tab" data-toggle="tab" href="#warm" role="tab" aria-controls="warm"
+        aria-selected="false">Organization setup</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="cold-tab" data-toggle="tab" href="#cold" role="tab" aria-controls="cold"
+        aria-selected="false">Report access</a>
+    </li>
+  </ul>
+
+  <!-- ======================================================================= tab nav end ============================================================================== -->
+
+  <div class="tab-content tab-dd" id="myTabContent">
+    <div class="tab-pane fade show active" id="fresh" role="tabpanel" aria-labelledby="fresh-tab">
+
+      <!-- =================================================== sub-tabs start =========================================================================== -->
+      <ul class="nav nav-tabs sub-tabs mt-4" id="myTab" role="tablist">
+        <li class="nav-item mr-2">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+            aria-selected="true">
+            <button type="button" class="btn btn-secondary active">
+              <img src="assets/images/team-deactive.svg" width="16px" height="16px" class="mr-2" />
+              Team
+            </button>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+            aria-selected="false">
+            <button type="button" class="btn btn-secondary">
+              <img src="assets/images/channel-partners-deactive.svg" width="16px" height="16px" class="mr-2" />
+              Channel partners
+            </button>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+          <div class="row mt-3">
+
+            <div class="mr-3 mb-3">
+              <button type="button" class="btn button-sm m-0" data-toggle="modal" data-target="#invite"
+                (click)="openpopUpInvitenew()">
+                <img src="assets/images/add-more.svg" width="16px" height="16px" class="mr-2" />Invite new team
+                member</button>
+            </div>
+
+            <div class="mb-3 mr-2" data-toggle="modal" data-target="#SetSalesTarget">
+              <button type="button" class="btn button-sm m-0">
+                <img src="assets/images/set-target-active.svg" width="16px" height="16px" class="mr-2" />Set
+                target</button>
+            </div>
+
+            <div class="ml-lg-auto mb-3">
+              <input class="form-control m-0 min-width-250" type="search" [(ngModel)]="userFilter.employeename"
+                [ngModelOptions]="{standalone: true}" placeholder="Search in team members">
+            </div>
+
+          </div>
+          <!--row-end-->
+
+          <div class="row">
+
+            <div class="settings-card"
+              *ngFor="let Employee of EmployeesInfo | filterBy: userFilter;let Index=index;trackBy: trackByFn">
+
+              <div class="mytitle">{{Employee.employeename}}
+
+                <div class="phone"><a href="mailto:john@acme.com">{{Employee.email}}</a></div>
+                <div class="target">Target: 0</div>
+
+                <div>
+
+                  <p class="date  mt-2">Mobile:</p>
+                  <p class="mb-2">{{Employee.mobileno}}</p>
+                  <p class="date">Role:</p>
+                  <p class="mb-2">{{Employee.rolename}}</p>
+                  <p class="date">Designation:</p>
+                  <p class="mb-2">{{Employee.designationname}}</p>
+                  <p class="date">Annual CTC:</p>
+                  <p class="mb-2">{{Employee.ctc}}</p>
+                  <p class="date">Date of joining:</p>
+                  <p class="mb-2">{{Employee.employeedoj | date: 'dd MMM yyyy'}}</p>
+
+                </div>
+
+              </div>
+
+              <div class="mymenu dropdown">
+                <button class="dropdown-toggle scdd" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <img src="assets/images/more-vertical-active.svg" width="16px" height="16px" />
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" (click)="openpopUpInvite(Employee)" id="#invite" data-toggle="modal">Edit</a>
+                  <a class="dropdown-item" (click)="openpopUpInviteSuspend(Employee)" id="#SuspendTeamMember"
+                    data-toggle="modal">Suspend account</a>
+                  <a class="dropdown-item" (click)="openpopUpInviteTransfer(Employee)" id="#TransferLeads"
+                    data-toggle="modal">Transfer leads</a>
+                  <a class="dropdown-item" (click)="openpopUpDeleteInvite(Employee)" id="#DeleteSalesPersonnnel"
+                    data-toggle="modal">Delete</a>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+        <!--sub-content-pannel-1 end-->
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="row mt-3">
+
+            <div class="mb-3">
+              <button type="button" class="btn button-sm m-0" data-toggle="modal" (click)="openpopUpchannelnew()"
+                data-target="#AddNewChannelPartner">
+                <img src="assets/images/add-more.svg" width="16px" height="16px" class="mr-2" />Add channel
+                partner</button>
+            </div>
+            <div class="ml-sm-auto mb-3">
+              <input class="form-control min-width-250 my-0" type="search" [(ngModel)]="userFilterchannel.referalname"
+                [ngModelOptions]="{standalone: true}" placeholder="Search in channel partners">
+            </div>
+
+          </div>
+          <!--row-end-->
+
+          <div class="row">
+
+            <div class="settings-card"
+              *ngFor="let ChannelPartener of ChannelPartenerInfo | filterBy: userFilterchannel;let Index=index;trackBy: trackByFn">
+
+              <div class="mytitle">{{ChannelPartener.referalname}}
+                <div class="phone"><a href="mailto:kate@acme.com">{{ChannelPartener.referalemail}}</a></div>
+                <div class="RL13">Mobile: {{ChannelPartener.referalcontactno}}</div>
+
+                <div>
+
+                  <p class="date  mt-2">Bank Account name:</p>
+                  <p class="mb-2">{{ChannelPartener.bankaccountname}}</p>
+                  <p class="date">Bank account number:</p>
+                  <p class="mb-2">{{ChannelPartener.bankaccountno}}</p>
+                  <p class="date">Bank account type:</p>
+                  <p class="mb-2">{{ChannelPartener.BankAccounttype}}</p>
+                  <p class="date">FSC code:</p>
+                  <p class="mb-2">{{ChannelPartener.bankIFSCCode}}</p>
+
+                </div>
+
+              </div>
+
+              <div class="mymenu dropdown">
+                <button class="dropdown-toggle scdd" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <img src="assets/images/more-vertical-active.svg" width="16px" height="16px" />
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" (click)="openpopUpchannel(ChannelPartener)" id="#AddNewChannelPartner"
+                    data-toggle="modal">Edit</a>
+                  <a class="dropdown-item" (click)="openpopUpchanneldelete(ChannelPartener)" id="#DeleteChannnelPartner"
+                    data-toggle="modal">Delete</a>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+          <!--row-end-->
+        </div>
+        <!--sub-content-pannel-2 end-->
+      </div>
+      <!--sub-tab-content end-->
+    </div>
+    <!--tab content pannnel 1 end-->
+
+    <div class="tab-pane fade" id="hot" role="tabpanel" aria-labelledby="hot-tab">
+      <!--sub-tabs start-->
+      <ul class="nav nav-tabs mt-4 sub-tabs" id="myTab" role="tablist">
+        <li class="nav-item mr-2">
+          <a class="nav-link active" id="home2-tab" data-toggle="tab" href="#home2" role="tab" aria-controls="home2"
+            aria-selected="true">
+            <button type="button" class="btn btn-secondary active">
+              <img src="assets/images/team-deactive.svg" width="16px" height="16px" class="mr-2" />Manage business
+              deals</button>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile2-tab" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile2"
+            aria-selected="false">
+            <button type="button" class="btn btn-secondary">
+              <img src="assets/images/channel-partners-deactive.svg" width="16px" height="16px" class="mr-2" />Merge
+              data</button>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home2-tab">
+
+          <div class="row mt-3">
+
+            <div class="mb-3">
+              <button type="button" class="btn button-sm m-0" data-toggle="modal" data-target="#AddBusinessDeals">
+                <img src="assets/images/add-more.svg" width="16px" height="16px" class="mr-2" />Add bulk</button>
+            </div>
+            <div class="ml-sm-auto mb-3">
+              <input class="form-control m-0 min-width-250" type="search" [(ngModel)]="userFilterdeal.dealname"
+                [ngModelOptions]="{standalone: true}" placeholder="Search in business deals">
+            </div>
+
+          </div>
+          <!--row-end-->
+
+          <div class="row">
+
+            <!-- <div class="settings-card"> -->
+            <div class="settings-card"
+              *ngFor="let dealid of dealids | filterBy: userFilterdeal;let Index=index;trackBy: trackByFn">
+              <div class="mytitle">
+                <h3 class="QM14">{{dealid.dealname}}</h3>
+                <p class="RL15 mb-0">{{dealid.dealvalue}}</p>
+              </div>
+
+              <div class="mymenu dropdown">
+                <button class="dropdown-toggle scdd" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <img src="assets/images/more-vertical-active.svg" width="16px" height="16px" />
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" (click)="openpopUp(dealid)" data-toggle="modal"
+                    id="#EditBusinessDeal">Edit</a>
+                  <a class="dropdown-item" (click)="openpopUpdata(dealid)" data-toggle="modal"
+                    id="#DeleteBusinessDeal">Delete</a>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+          <!--row-end-->
+
+        </div>
+        <!--sub-content-pannel-1 end-->
+
+        <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile2-tab">
+
+          <div class="row mt-4">
+
+            <div class="col-sm-6 col-lg-4 pl-0">
+              <p class="mb-0 QM14">Select lead source</p>
+              <div class="dropdown">
+                <button class="btn btn-white dropdown-toggle w-100 text-left" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select a source
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Hindu</a>
+                  <a class="dropdown-item" href="#">The hindu</a>
+                  <a class="dropdown-item" href="#">Hans India</a>
+                  <a class="dropdown-item" href="#">The Hans India</a>
+                  <a class="dropdown-item" href="#">Kapil Towers</a>
+                  <a class="dropdown-item" href="#">Kapil Properties</a>
+                  <a class="dropdown-item" href="#">Adwords</a>
+                  <a class="dropdown-item" href="#">Facebook</a>
+                  <a class="dropdown-item" href="#">Twitter</a>
+                </div>
+              </div>
+            </div>
+            <!--col-end-->
+
+            <div class="col-sm-6 col-lg-4 pl-sm-3 pl-0">
+              <p class="mb-0 QM14">Merge lead source with</p>
+              <div class="dropdown">
+                <button class="btn btn-white dropdown-toggle w-100 text-left" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select a duplicate source
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Hindu</a>
+                  <a class="dropdown-item" href="#">The hindu</a>
+                  <a class="dropdown-item" href="#">Hans India</a>
+                  <a class="dropdown-item" href="#">The Hans India</a>
+                  <a class="dropdown-item" href="#">Kapil Towers</a>
+                  <a class="dropdown-item" href="#">Kapil Properties</a>
+                  <a class="dropdown-item" href="#">Adwords</a>
+                  <a class="dropdown-item" href="#">Facebook</a>
+                  <a class="dropdown-item" href="#">Twitter</a>
+                </div>
+              </div>
+            </div>
+            <!--col-end-->
+
+            <div class="col-lg-4 pl-lg-3 pl-0 mt-auto">
+              <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#ConfirmSourceDataMerge">Merge
+                source labels</button>
+            </div>
+            <!--col-end-->
+
+          </div>
+          <!--row-end-->
+
+          <div class="row mt-4">
+
+            <div class="col-sm-6 col-lg-4 pl-0">
+              <p class="mb-0 QM14">Select business deal label</p>
+              <div class="dropdown">
+                <button class="btn btn-white dropdown-toggle w-100 text-left" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select a source
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Hindu</a>
+                  <a class="dropdown-item" href="#">The hindu</a>
+                  <a class="dropdown-item" href="#">Hans India</a>
+                  <a class="dropdown-item" href="#">The Hans India</a>
+                  <a class="dropdown-item" href="#">Kapil Towers</a>
+                  <a class="dropdown-item" href="#">Kapil Properties</a>
+                  <a class="dropdown-item" href="#">Adwords</a>
+                  <a class="dropdown-item" href="#">Facebook</a>
+                  <a class="dropdown-item" href="#">Twitter</a>
+                </div>
+              </div>
+            </div>
+            <!--col-end-->
+
+            <div class="col-sm-6 col-lg-4 pl-sm-3 pl-0">
+              <p class="mb-0 QM14">Merge business deal label with</p>
+              <div class="dropdown">
+                <button class="btn btn-white dropdown-toggle w-100 text-left" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select a duplicate source
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Hindu</a>
+                  <a class="dropdown-item" href="#">The hindu</a>
+                  <a class="dropdown-item" href="#">Hans India</a>
+                  <a class="dropdown-item" href="#">The Hans India</a>
+                  <a class="dropdown-item" href="#">Kapil Towers</a>
+                  <a class="dropdown-item" href="#">Kapil Properties</a>
+                  <a class="dropdown-item" href="#">Adwords</a>
+                  <a class="dropdown-item" href="#">Facebook</a>
+                  <a class="dropdown-item" href="#">Twitter</a>
+                </div>
+              </div>
+            </div>
+            <!--col-end-->
+
+            <div class="col-lg-4 pl-lg-3 pl-0 mt-auto">
+              <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#ConfirmSourceDataMerge">Merge
+                deal labels</button>
+            </div>
+            <!--col-end-->
+
+          </div>
+          <!--row-end-->
+
+        </div>
+        <!--sub-content-pannel-2 end-->
+      </div>
+      <!--sub-tab-content end-->
+
+    </div>
+    <!--tab content pannnel 2 end-->
+
+    <div class="tab-pane fade" id="warm" role="tabpanel" aria-labelledby="warm-tab">
+
+      <div class="row mt-4">
+
+        <div class="organization-setup">
+  
+          <h3 class="QM14 mb-0">Who can add new business deals?</h3>
+          <p class="RL13 mb-3">while entering lead details</p>
+
+          <div class="row border-bottom mx-1 py-2" *ngFor="let d of newbusinessdealsdata" >
+            <div class="form-check" >
+              <input (click)="checked(d)" class="form-check-input" type="radio" name="newbusinessdealsdata1" id="newbusinessdealsdata9" value="{{d.id}}">
+              <label class="form-check-label RL15" for="newbusinessdealsdata1">
+               {{d.name}}
+              </label>
+            </div>
+            <div class="radio-col2" *ngIf="d.name =='Selected users' ">
+              <a href="#WhoCan" data-toggle="modal" class="RL15">Select</a>
+            </div>
+          </div>
+         
+        </div>
+
+        <div class="organization-setup">
+
+          <h3 class="QM14 mb-3">Who can export lead data?</h3>
+
+          <div class="row border-bottom mx-1 py-2" *ngFor="let d of exportleaddata" >
+            <div class="form-check" >
+              <input (click)="checked(d)" class="form-check-input" type="radio" name="exportleaddata2" id="exportleaddata2" value="{{d.id}}">
+              <label class="form-check-label RL15" for="exampleRadios9">
+               {{d.name}}
+              </label>
+            </div>
+            <div class="radio-col2" *ngIf="d.name =='Selected users' ">
+              <a href="#WhoCan" data-toggle="modal" class="RL15">Select</a>
+            </div>
+          </div>
+         
+        </div>
+
+        <div class="organization-setup">
+
+          <h3 class="QM14 mb-3">Who can assign new leads?</h3>
+
+          <div class="row border-bottom mx-1 py-2" *ngFor="let d of assignleadata" >
+            <div class="form-check" >
+              <input (click)="checked(d)" class="form-check-input" type="radio" name="assignleadata3" id="assignleadata
+              3" value="{{d.id}}">
+              <label class="form-check-label RL15" for="exampleRadios9">
+               {{d.name}}
+              </label>
+            </div>
+            <div class="radio-col2" *ngIf="d.name =='Selected users' ">
+              <a href="#WhoCan" data-toggle="modal" class="RL15">Select</a>
+            </div>
+          </div>
+          <!--row-end-->
+
+        
+
+        </div>
+
+        <div class="organization-setup">
+
+          <h3 class="QM14 mb-3">Set currency and date format</h3>
+          <p class="RL15 mb-0">Currency</p>
+          <div class="dropdown mb-2">
+
+            <select class="form-control" placeholder="Select Currency Format" formControlName="currencycode"
+              (change)="selectFormat('currencyformat',$event)">
+              <option value="" ng-selected="selected">Select Currency Format</option>
+              <option *ngFor="let country  of CountryList;trackBy: trackByFn" [value]="country.currencycode">
+                {{country.name}} - {{country.currencyname}} - {{country.currencysymbol}}
+              </option>
+            </select>
+
+
+          </div>
+
+          <p class="RL15 mb-0">Date format</p>
+          <div class="dropdown">
+            <select class="form-control" placeholder="Select Date Format" formControlName="dateformat"
+              (change)="selectFormat('dateformat',$event)">
+              <option value="" ng-selected="selected">Select Currency Format</option>
+              <option *ngFor="let format  of dateformats;trackBy: trackByFn" [value]="format.dateformat">
+                {{format.dateformat}}                </option>
+            </select>
+          </div>
+
+          <div class="alert alert-success alert-dismissible fade show alert-sm RL13 w-100" role="alert">
+            Currency and Date format saved
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+        </div>
+
+        <div class="organization-setup">
+
+          <h3 class="QM14 mb-3">Send organisation sales performance report</h3>
+
+          <div class="row border-bottom mx-1 py-2">
+            <div class="form-check">
+              <div class="radio-col1">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label RL15" for="defaultCheck1">
+                  Daily
+                </label>
+              </div>
+              <div class="radio-col2">
+                <a href="#WhoCan" data-toggle="modal" class="RL15">Select users</a>
+              </div>
+            </div>
+          </div>
+          <!--row-end-->
+
+          <div class="row border-bottom mx-1 py-2">
+            <div class="form-check">
+              <div class="radio-col1">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                <label class="form-check-label RL15" for="defaultCheck2">
+                  Weekly
+                </label>
+              </div>
+              <div class="radio-col2">
+                <a href="#WhoCan" data-toggle="modal" class="RL15">Select users</a>
+              </div>
+            </div>
+          </div>
+          <!--row-end-->
+
+          <div class="row border-bottom mx-1 py-2">
+            <div class="form-check">
+              <div class="radio-col1">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                <label class="form-check-label RL15" for="defaultCheck3">
+                  Monthly
+                </label>
+              </div>
+              <div class="radio-col2">
+                <a href="#WhoCan" data-toggle="modal" class="RL15">Select users</a>
+              </div>
+            </div>
+          </div>
+          <!--row-end-->
+
+        </div>
+
+        <div class="organization-setup">
+
+          <h3 class="QM14 mb-3">Invite user domain restrictions</h3>
+
+          <div class="row border-bottom mx-1 py-2">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios13" value="option13">
+              <label class="form-check-label RL15" for="exampleRadios13">
+                Any domain
+              </label>
+            </div>
+          </div>
+          <!--row-end-->
+
+          <div class="row border-bottom mx-1 py-2">
+            <div class="form-check">
+              <div class="radio-col1">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios14" value="option14">
+                <label class="form-check-label RL15" for="exampleRadios14">
+                  Selected domains
+                </label>
+              </div>
+              <div class="radio-col2">
+                <a href="#InviteUserDomainRestrictions" data-toggle="modal" class="RL15">Select</a>
+              </div>
+            </div>
+          </div>
+          <!--row-end-->
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- ===================================================================== tab content pannel 3 end ======================================================================= -->
+    <div class="tab-pane fade" id="cold" role="tabpanel" aria-labelledby="cold-tab">
+
+      <div class="row RL15 mt-4">
+
+        <button type="button" class="btn button-sm m-0 mr-3" data-toggle="modal"
+          data-target="#InviteToAccessUserReports">
+          <img src="assets/images/invite2-active.svg" width="16px" height="16px" class="mr-2" />
+          Invite user
+        </button>
+
+        Invite email domain restriction &nbsp; <a routerLink="/settings" class="RL15">settings</a>
+
+      </div>
+
+      <div class="row mt-4">
+
+        <div class="settings-card">
+
+          <div class="mytitle">Venu Gopal Rao
+            <div class="phone mb-3"><a href="mailto:john@acme.com">md@kapilit.com</a></div>
+
+            <div>
+
+              <p class="mb-2">Has report access for 4 users</p>
+              <p class="mb-2">@Purna</p>
+              <p class="mb-2">@veera</p>
+
+            </div>
+
+            <div class="phone mt-3">
+              <a href="#EditAccessToUserReports" data-toggle="modal">View all /</a>&nbsp;
+              <a href="#EditAccessToUserReports" data-toggle="modal">Edit</a>
+            </div>
+
+          </div>
+
+          <div class="mymenu">
+            <a href="#DeleteAccessToAllUserReports" data-toggle="modal"><img src="assets/images/delete.svg" width="16px"
+                height="16px" /></a>
+          </div>
+
+        </div>
+
+        <div class="settings-card">
+
+          <div class="mytitle">Venu Gopal Rao
+            <div class="phone mb-3"><a href="mailto:john@acme.com">md@kapilit.com</a></div>
+
+            <div>
+
+              <p class="mb-2">Has report access for 4 users</p>
+              <p class="mb-2">@Purna</p>
+              <p class="mb-2">@veera</p>
+
+            </div>
+
+            <div class="phone mt-3">
+              <a href="#EditAccessToUserReports" data-toggle="modal">View all /</a>&nbsp;
+              <a href="#EditAccessToUserReports" data-toggle="modal">Edit</a></div>
+
+          </div>
+
+          <div class="mymenu">
+            <a href="#DeleteAccessToAllUserReports" data-toggle="modal"><img src="assets/images/delete.svg" width="16px"
+                height="16px" /></a>
+          </div>
+
+        </div>
+
+        <div class="settings-card">
+
+          <div class="mytitle">Venu Gopal Rao
+            <div class="phone mb-3"><a href="mailto:john@acme.com">md@kapilit.com</a></div>
+
+            <div>
+
+              <p class="mb-2">Has report access for 4 users</p>
+              <p class="mb-2">@Purna</p>
+              <p class="mb-2">@veera</p>
+
+            </div>
+
+            <div class="phone mt-3">
+              <a href="#EditAccessToUserReports" data-toggle="modal">View all /</a>&nbsp;
+              <a href="#EditAccessToUserReports" data-toggle="modal">Edit</a></div>
+
+          </div>
+
+          <div class="mymenu">
+            <a href="#DeleteAccessToAllUserReports" data-toggle="modal"><img src="assets/images/delete.svg" width="16px"
+                height="16px" /></a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- ===================================================================== tab content pannel 4 end ======================================================================= -->
+  </div>
+
+  <!-- ======================================================================= tab end ============================================================================= -->
+
+</div>
+<!-- ==================================================================== modals start here ======================================================================= --
+  !-- ==================================================================== Invite New TeamMember start ==================================================================== -->
+<!-- <div class="modal fade pl-0" id="InviteNewTeamMember" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+     <app-invitemember></app-invitemember>
+    </div>
+  </div>  
+  </div> -->
+<div class="modal fade pl-0" id="invite" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-inviteteam (InviteTeamUpdate)="UpdateofInviteTeam()" (settingupdate)="click()"></app-inviteteam>
+    </div>
+
+  </div>
+</div>
+<!-- ==================================================================== SetSalesTarget start ==================================================================== -->
+<div class="modal fade pl-0" id="SetSalesTarget" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-setsalestarget></app-setsalestarget>
+    </div>
+  </div>
+</div>
+<!-- ===================================================================== SuspendTeamMember start ================================================================== -->
+<div class="modal fade pl-0" id="SuspendTeamMember" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-suspendteammember></app-suspendteammember>
+    </div>
+  </div>
+</div>
+<!-- ===================================================================== TransferLeads start ====================================================================== -->
+<div class="modal fade pl-0" id="TransferLeads" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-transferleads></app-transferleads>
+    </div>
+  </div>
+</div>
+<!-- ========================================================================= EditTeamMember start ===================================================================== -->
+<div class="modal fade pl-0" id="EditTeamMember" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-editmember></app-editmember>
+    </div>
+  </div>
+</div>
+<!-- ======================================================================= DeleteSalesPersonnnelUser start ============================================================== -->
+<div class="modal fade pl-0" id="DeleteSalesPersonnnel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-deletesalespersonnel></app-deletesalespersonnel>
+    </div>
+  </div>
+</div>
+<!-- ==================================================================== Add new channel partner ==================================================================== -->
+<div class="modal fade pl-0" id="AddNewChannelPartner" tabindex="-1" role="dialog" aria-lcd
+  abelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-add-channelpartner (settingchanneldataupdate)="click()"></app-add-channelpartner>
+    </div>
+  </div>
+</div>
+<!-- ===================================================================== EditChannelPartner start ================================================================= -->
+<div class="modal fade pl-0" id="EditChannelPartner" tabindex="-1" role="dialog" aria-lcd abelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-editchannelpartner (settingchanneldatadelete)="click()"></app-editchannelpartner>
+
+    </div>
+  </div>
+</div>
+<!-- ===================================================================== DeleteChannnelPartner end ================================================================== -->
+<div class="modal fade pl-0" id="DeleteChannnelPartner" tabindex="-1" role="dialog" aria-lcd
+  abelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-deletechannelpartner (settingchanneldatadelete)="click()"></app-deletechannelpartner>
+    </div>
+  </div>
+</div>
+<!-- ======================================================================= AddBusinessDeals start =================================================================== -->
+<div class="modal fade pl-0" id="AddBusinessDeals" tabindex="-1" role="dialog" aria-lcd abelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-addbusinessdeals (settingaddbulkdeal)="click()"></app-addbusinessdeals>
+    </div>
+  </div>
+</div>
+<!-- ======================================================================= Edit business deal start =================================================================== -->
+<div class="modal fade pl-0" id="EditBusinessDeal" tabindex="-1" role="dialog" aria-lcd abelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-editbusinessdeal (settingeditbusinessdeal)="click()"></app-editbusinessdeal>
+    </div>
+  </div>
+</div>
+<!-- ======================================================================= Delete business deal start =================================================================== -->
+<div class="modal fade pl-0" id="DeleteBusinessDeal" tabindex="-1" role="dialog" aria-lcd abelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-deletebusinessdeal></app-deletebusinessdeal>
+    </div>
+  </div>
+</div>
+<!-- ======================================================================= Who Can deal start =================================================================== -->
+<div class="modal fade pl-0" id="WhoCan" tabindex="-1" role="dialog" aria-lcd abelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-whocan></app-whocan>
+    </div>
+  </div>
+</div>
+<!-- ========================================================== invite user domain restrictions start ================================================================= -->
+<div class="modal fade pl-0" id="InviteUserDomainRestrictions" tabindex="-1" role="dialog" aria-lcd
+  abelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-inviteuserdomain></app-inviteuserdomain>
+    </div>
+  </div>
+</div>
+<!-- ======================================================================= Invite to access user reports start =================================================================== -->
+<div class="modal fade pl-0" id="InviteToAccessUserReports" tabindex="-1" role="dialog" aria-lcd
+  abelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-access-usereports></app-access-usereports>
+    </div>
+  </div>
+</div>
+<!-- ======================================================================= DeleteAccessToAllUserReports start ======================================================= -->
+<div class="modal fade pl-0" id="DeleteAccessToAllUserReports" tabindex="-1" role="dialog" aria-lcd
+  abelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-deleteaccess></app-deleteaccess>
+    </div>
+  </div>
+</div>
+<!-- ======================================================================= Edit access to user reports start ======================================================== -->
+<div class="modal fade pl-0" id="EditAccessToUserReports" tabindex="-1" role="dialog" aria-lcd
+  abelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-editaccessreports></app-editaccessreports>
+    </div>
+  </div>
+</div>
+</form>

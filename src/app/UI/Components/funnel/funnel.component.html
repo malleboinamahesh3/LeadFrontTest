@@ -1,0 +1,310 @@
+<!-- ======================================================================== navbar end ============================================================================= -->
+<div class="row pl-3 pt-4">
+
+  <h1>Funnel</h1>
+  <div class="dropdown main-dd">
+    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      All members
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+    </div>
+  </div>
+
+</div>
+<!-- =========================================================================== title bar end ========================================================================== -->
+
+<ul class="nav nav-tabs funnel-tabs" id="myTab" role="tablist">
+
+  <li class="nav-item" *ngFor="let StatusName of Dealstages;let NavIndex=index;trackBy: trackByFn">
+    <a (click)="BindRelateddat(NavIndex,StatusName.clientstagename)" class="{{AcivateNav(NavIndex)}}" id="fresh-tab"
+      data-toggle="tab" href="#{{StatusName.clientstagename}}" role="tab" aria-controls="fresh" aria-selected="true">{{StatusName.clientstagename}}<span
+        class="{{StatusName.CSSCLASSBADGE}}">{{GeTCount(StatusName.clientstagename)}}</span></a>
+  </li>
+</ul>
+
+<!-- ======================================================================= tab nav end ============================================================================== -->
+
+<div class="tab-content tab-dd" id="myTabContent">
+
+
+
+  <div *ngFor="let StatusNamediv of Dealstages ;let indexoftab=index;trackBy: trackByFn" class="{{ActiveTab(indexoftab)}}"
+    id="{{StatusNamediv.clientstagename}}" role="tabpanel" aria-labelledby="fresh-tab">
+
+    <div class="row pl-3 mt-2 mb-3">
+
+      <ul class="nav nav-pills" id="myTab-inner" role="tab" aria-label="Button group with nested dropdown" role="group"
+        aria-label="Button group with nested dropdown">
+        <li class="btn-group">
+          <a class="btn btn-secondary dropdown-toggle active" (click)="FunnelHideandShow('Card')" id="btnGroupDrop1"
+            data-toggle="tab" href="#funnel-card{{StatusNamediv.clientstagename}}" role="dropdown" aria-controls="home"
+            aria-selected="true">
+            <img class="mr-2" width="16px" height="16px" src="assets/images/card-view.svg" />Card view
+
+
+          </a>
+        </li>
+
+
+        <li class="btn-group mr-2">
+          <a class="btn btn-secondary dropdown-toggle " (click)="FunnelHideandShow('Table')" id="btnGroupDrop1"
+            data-toggle="tab" href="#funnel-table{{StatusNamediv.clientstagename}}" role="dropdown" aria-controls="home"
+            aria-selected="true">
+            <img class="mr-2" width="16px" height="16px" src="assets/images/table-view.svg" />Table view
+
+
+          </a>
+        </li>
+        <li class="btn-group" *ngIf="Cardhide">
+          <button id="btnGroupDrop1" type="button" class="btn btn-secondary drop-custom dropdown-toggle"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="mr-2" width="16px" height="16px" src="assets/images/filters-deactive.svg" />Filters
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item"
+              (click)="GetData('leaddate',StatusNamediv.clientstagename,indexoftab,'View all')">View all</a>
+            <a class="dropdown-item" (click)="GetData('fullname',StatusNamediv.clientstagename,indexoftab,'By Name')">By
+              Name</a>
+            <a class="dropdown-item"
+              (click)="GetData('dealname',StatusNamediv.clientstagename,indexoftab,'By Business Deals')">By Business
+              Deals</a>
+            <a class="dropdown-item"
+              (click)="GetData('parentsourcename',StatusNamediv.clientstagename,indexoftab,'By Source')">By
+              Source</a>
+            <a class="dropdown-item" (click)="GetData('leaddate',StatusNamediv.clientstagename,indexoftab,'By Date')">By
+              Date</a>
+            <a class="dropdown-item"
+              (click)="GetData('leaddate',StatusNamediv.clientstagename,indexoftab,'By Today')">By
+              Today</a>
+            <a class="dropdown-item"
+              (click)="GetData('leaddate',StatusNamediv.clientstagename,indexoftab,'By Week')">By
+              Week</a>
+            <a class="dropdown-item"
+              (click)="GetData('leaddate',StatusNamediv.clientstagename,indexoftab,'By Month')">By
+              Month</a>
+          </div>
+        </li>
+        <li class="btn-group" *ngIf="CardShow">
+          <button id="btnGroupDrop1" type="button" class="btn btn-secondary drop-custom dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img class="mr-2" width="16px" height="16px" src="assets/images/filters-deactive.svg" />Filters
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+
+            <div id="grpChkBox">
+              <a class="dropdown-item" *ngFor="let a of tableViewcolumsshowandhide;trackBy: trackByFn;let Indq=index;">
+                <input class="mr-2" type="checkbox" aria-label="Checkbox for following text input" (change)="onFilterChange(a.id,StatusNamediv.clientstagename)"
+                  checked={{a.checked}}>{{a.name}}
+              </a>
+
+
+            </div>
+
+
+          </div>
+
+
+        </li>
+        <li class="btn-group" *ngIf="CardShow">
+          <div class="btn-group" role="group">
+            <div class="actionSelect">
+              <select placeholder="Export" class="dropdown-menu" (change)="ExportDataPrint(StatusNamediv.clientstagename)"
+                id="exportLink{{StatusNamediv.clientstagename}}" class="btn btn-secondary drop-custom dropdown-toggle"
+                style="padding:7px;">
+                <!-- <option hidden>More</option> -->
+                <option hidden><img class="mr-2" width="16px" height="16px" src="assets/images/more-actions-active.svg" />More</option>
+                <option class="dropdown-item" id="csv">Export as CSV</option>
+                <option class="dropdown-item" id="excel">Export as XLS</option>
+                <!-- <option class="dropdown-item" id="copy">Copy to clipboard</option> -->
+                <option class="dropdown-item" id="pdf">Export as PDF</option>
+                <option class="dropdown-item" id="Print">Export as Print</option>
+                <option class="dropdown-item" id="Pdf">Export All</option>
+              </select>
+
+            </div>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ====================================================================== tab dropdowns end ====================================================================== -->
+    <div class="tab-content">
+      <!----funnel card start------------------------->
+      <div class="{{ActivateTabCard()}}" id="funnel-card{{StatusNamediv.clientstagename}}" role="tabpanel"
+        aria-labelledby="funnel-card-tab">
+
+        <div *ngFor="let a of data;trackBy: trackByFn">
+
+          <div *ngIf="indexoftab == 0" class="row pl-3">
+            <h2> {{a.key}}({{a.value.length}})</h2>
+
+          </div>
+          <!-- data-target="#FreshBusinessDeal" -->
+          <div *ngIf="indexoftab == 0" class="row px-3 ">
+            <div *ngFor="let detail of a.value;trackBy: trackByFn; let inx=index">
+              <div>
+                <div (click)="openpopUp(detail,StatusNamediv.clientstagename)" class="funnel-card" data-toggle="modal">
+
+
+                  <div class="date">{{detail.leaddate}}</div>
+                  <div class="title">{{detail.fullname}}</div>
+                  <div class="title">{{detail.email}}</div>
+                  <div class="phone"><a>{{detail.mobileno}}</a></div>
+                  
+                  <!-- <div style="text-overflow: ellipsis;white-space: nowrap; width: 50px;">{{detail.query}}</div> -->
+                  <div class="funnel-card-query">{{detail.query}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngFor="let a of Newdata;trackBy: trackByFn">
+
+          <div *ngIf="indexoftab > 0" class="row pl-3">
+            <h2> {{a.key}}({{a.value.length}})</h2>
+
+          </div>
+
+          <div *ngIf="indexoftab > 0 && (StatusNamediv.clientstagename !='Sold' && StatusNamediv.clientstagename !='Cancel' ) " class="row px-3 ">
+            <div (click)="openpopUp(detail,StatusNamediv.clientstagename)" class="funnel-card" *ngFor="let detail of a.value;trackBy: trackByFn"
+              data-toggle="modal">
+
+              <!-- {{StatusNamediv.clientstagename}} -->
+              <div class="date">{{detail.leaddate}}</div>
+              <div class="title">{{detail.fullname}}</div>
+              <div class="title">{{detail.email}}</div>
+              <div class="phone"><a >{{detail.mobileno}}</a></div>
+              <!-- <div class="title"> dealvalue :{{detail.finaldealvalue}}</div> -->
+              <!-- <div class="title"> Received :{{detail.received}}</div>
+              <div class="title"> Receivable :{{detail.receivable}}</div> -->
+              <div class="funnel-card-query">{{detail.query}}</div>
+
+            </div>
+          </div>
+
+          <div *ngIf="indexoftab > 0 && (StatusNamediv.clientstagename =='Sold' || StatusNamediv.clientstagename =='Cancel' ) " class="row px-3 ">
+            <div (click)="openpopUp(detail,StatusNamediv.clientstagename)" class="funnel-card" *ngFor="let detail of a.value;trackBy: trackByFn"
+              data-toggle="modal">
+
+              <!-- {{StatusNamediv.clientstagename}} -->
+              <div class="date">{{detail.leaddate}}</div>
+              <div class="title">{{detail.fullname}}</div>
+              <div class="title">{{detail.email}}</div>
+              <div class="phone"><a href="">{{detail.mobileno}}</a></div>
+             
+              <!-- <div class="title"> Received :{{detail.received | currency: 'INR':'symbol':'1.00-0'}}  </div>
+              <div class="title"> Receivable :{{detail.receivable | currency: 'INR':'symbol':'1.0-0'}} </div> -->
+              <div class="title"> Received :{{detail.received | mycurrency}}  </div>
+              <div class="title"> Receivable :{{detail.receivable | mycurrency}} </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- <input type="button" value="Load More" (click)="LoadMore('2',StatusNamediv.clientstagename,false)"> -->
+
+     
+        <div class="row px-3 view-more">
+
+          <div class="col px-0">
+
+
+            <div *ngIf="LoadCount<=GeTCount(StatusNamediv.clientstagename) ; else notShowBlock" >
+              <p>
+                Viewing {{LoadCount}} of
+                {{newcount}}
+              </p>
+            </div>
+
+            <ng-template #notShowBlock>
+              <p>
+                No Data Found !
+              </p>
+            </ng-template>
+
+            <button *ngIf="LoadCount<newcount" type="button" class="btn btn-white ml-4"
+              value="LoadMore" (click)="LoadMore('2',StatusNamediv.clientstagename,false)">Load more</button>
+            <button *ngIf="LoadCount<newcount" type="button" class="btn btn-white ml-4"
+              value="LoadMore"
+              (click)="LoadMore(GeTCount(StatusNamediv.clientstagename),StatusNamediv.clientstagename,false)">Load
+              all</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-----------------------funnel card end---------------->
+      <!-- <button (click)="ShowhideColumsIndatatable()"  >Hide Column</button>  -->
+      <div class="{{ActivateTabTable()}}" id="funnel-table{{StatusNamediv.clientstagename}}" role="tabpanel"
+        aria-labelledby="funnel-table-tab">
+
+        <table id="Employee{{StatusNamediv.clientstagename}}" class="Employee_filter select table table-striped table-bordered"
+          cellspacing="0" width="100%">
+          <thead>
+
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+
+      </div>
+      <!-----------------------funnel table view end---------------->
+
+
+    </div>
+
+
+  </div>
+  <!---./-fresh-tab-content-->
+  <!-- ==================================================================== tab content pannnel 1 end =================================================================== -->
+
+</div>
+<!---./tab-content-->
+
+<!-- ======================================================================= tab1 end ============================================================================= -->
+
+<!------Fresh Buiiness Deal Modal------->
+<div class="modal fade pl-0" id="FreshBusinessDeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- <app-freshbusiness (valueChange)='displayCounter($event)' [funneldata]="popupdataofFunnel" (refreshfunnel)="RefreshFunnelAfterLeadModify($event)"></app-freshbusiness> -->
+      <app-leadedit (valueChange)='displayCounter($event)' (refreshfunnel)="RefreshFunnelAfterLeadModify($event)"></app-leadedit>
+    </div>
+
+  </div>
+</div>
+<!------Sold Buiiness Deal Modal------->
+<div class="modal fade pl-0" id="SoldBusinessDealHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- <app-soldbusiness (valueChange)='displayCounter($event)'></app-soldbusiness> -->
+      <app-soldbusiness (valueChange)='displayCounter($event)' (refreshfunnel)="RefreshFunnelAfterLeadModify($event)"></app-soldbusiness>
+    </div>
+
+  </div>
+</div>
+
+<!------Cancelled Buiiness Deal Modal------->
+<div class="modal fade pl-0" id="CancelledBusinessDeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-cancelledbusiness  (valueChange)='displayCounter($event)' (refreshfunnel)="RefreshFunnelAfterLeadModify($event)"></app-cancelledbusiness>
+    </div>
+
+  </div>
+</div>

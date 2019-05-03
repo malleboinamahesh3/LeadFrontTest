@@ -1,0 +1,68 @@
+<div class="overflow-y-auto height-350 mt-4">
+
+  <div class="row px-4">
+
+    <!-- <h3>History<a ><img src="assets/images/print.svg" width="16px" height="16px" class="ml-2 mb-2" printSectionId="print-section" ngxPrint /></a></h3> -->
+    <button class="HistortBtn mb-4 " printSectionId="print-section" ngxPrint printTitle="LeadFront"  [printStyle]="{h1 : {'color': 'red'}, h2 : {'border': 'solid 1px'}}">History<img src="assets/images/print.svg"
+        width="16px" height="16px" class="ml-2 mb-2 " /></button>
+  </div>
+  <div id="print-section">
+    <ul class="px-4 mb-2">
+      <li class="row border-bottom mb-2" *ngFor="let History of FollowHistory;trackBy: trackByFn">
+        <div class="RL13">
+          <span class="RR13">{{History.followupdate| date: 'dd MMM yyyy h:mm a'}}
+            <img *ngIf="History.followupthrough=='Cash'" src="assets/images/funds.svg" width="16px" height="16px"
+              class="ml-2 mb-2" />
+            <img *ngIf="History.followupthrough=='Call'" src="assets/images/history-phone.svg" width="12px"
+              height="12px" class="ml-2 mb-2" />
+            <img *ngIf="History.followupthrough=='SMS'" src="assets/images/history-sms.svg" width="12px" height="12px"
+              class="ml-2 mb-2" />
+            <img *ngIf="History.followupthrough=='Email'" src="assets/images/history-email.svg" width="12px"
+              height="12px" class="ml-2 mb-2" />
+            <img *ngIf="History.followupthrough=='Meeting'" src="assets/images/history-meeting.svg" width="12px"
+              height="12px" class="ml-2 mb-2" />
+          </span>
+          <!-- <p class="RR11">Amount paid: ₹20,000, Payment mode: Cheque #89456700. Receivable:₹1,80,000</p> -->
+          <p> {{History.remarks}}</p>
+          <p class="RR11">Lead Status changed to: {{History.stagename}} </p>
+
+           <p *ngIf="History.stagename !='Sold'"> Next Follow up on {{History.nextfollowupdate| date: 'dd MMM yyyy'}} [{{History.nextfollwupthrough}}]</p>
+          
+         
+        </div>
+      </li>
+      <!-- <li class="row border-bottom mb-2">
+    <div class="RL13">
+    <span class="RR13">28 Dec, 2018. 3:00 PM
+      <img src="assets/images/funds.svg" width="16px" height="16px" class="ml-2 mb-2" />
+      <img src="assets/images/history-phone.svg" width="12px" height="12px" class="ml-2 mb-2" />
+      <img src="assets/images/history-sms.svg" width="12px" height="12px" class="ml-2 mb-2" />
+      <img src="assets/images/history-email.svg" width="12px" height="12px" class="ml-2 mb-2" />
+      <img src="assets/images/history-meeting.svg" width="12px" height="12px" class="ml-2 mb-2" />
+    </span>
+    <p class="RR11">Amount paid: ₹20,000, Payment mode: Cheque #89456700. Receivable:₹1,80,000</p>
+   <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elementum ultrices magna.</p>
+    <p class="RR11">Lead Status changed to: Cancelled
+  Follow up on 01 Jan 2019, 10:30 AM [Meeting]</p>
+  </div> 
+  </li>   -->
+    </ul>
+  </div>
+</div>
+<style>
+  .HistortBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  
+  }
+
+  .HistortBtn:active,
+  .HistortBtn:focus,
+  .HistortBtn:hover,
+  .HistortBtn:visited {
+    outline:none !important;
+    background: none !important;
+    border: none !important;
+  }
+</style>

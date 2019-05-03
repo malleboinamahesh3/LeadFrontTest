@@ -1,0 +1,76 @@
+<div class="wrapper">
+<!-- ====================================================================== navbar start ============================================================================== -->
+<img class="btn-xs-toggle" width="24px" height="24px" src="assets/images/nav-hamburger.svg"/>
+<nav class="navbar-primary">
+  <ul class="navbar-primary-menu">
+  	
+    <li>
+    
+      <div class="row">
+      
+      <div class="float-left">
+      <a class="btn-expand-collapse"><img id="expand" width="24px" height="24px" src="assets/images/nav-close.svg"/>
+      <img id="collapse" width="24px" height="24px" src="assets/images/nav-hamburger.svg"/></a>
+      </div>
+      
+      <div class="logo">
+      
+      <img src="assets/images/lf-logo.svg" width="130px" height="50px"/>
+      
+      </div>
+      
+      <div class="dropdown menu-dd">
+      
+        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img width="25px" height="25px" src="assets/images/profile-picture.png"/>
+        </a>
+        
+      	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    	<a class="dropdown-item" href="#">Profile</a>
+   		<a class="dropdown-item" href="#">Signout</a>
+    	<a class="dropdown-item" href="#">Something else here</a>
+  	  	</div>
+        
+	  </div>
+      
+      </div>
+      
+      <div id="nav-search" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a class="i-search d-table" href="#"><input type="text" class="form-control" placeholder="Search"/></a>
+      </div>
+      
+      <div id="nav-dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> 
+      <a routerLink="/dashboard"><span class="nav-label">Dashboard</span></a>
+      </div>
+      
+      <div id="nav-addlead" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/leads"><span class="nav-label">Add Lead</span></a>
+      </div>
+      
+      <div id="nav-funnel" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/funnel"><span class="nav-label">Funnel</span></a>
+      </div>
+      
+      <div id="nav-todo" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/todo"><span class="nav-label">To do</span></a>
+      </div>
+      
+      <div id="nav-reports" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/reports"><span class="nav-label">Reports</span></a>
+      </div>
+      
+      <div id="nav-settings" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/settings"><span class="nav-label">Settings</span></a>
+      </div>
+      
+    </li>
+  </ul>
+</nav>
+<!-- ======================================================================== navbar end ============================================================================= -->
+
+<div class="main-content">  
+
+
+    <router-outlet></router-outlet>
+
+</div>

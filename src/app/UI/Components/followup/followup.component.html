@@ -1,0 +1,430 @@
+<!-- ========================================================================== column-1-end ===================================================================    
+  
+    
+  <div class="row px-4 pt-3">
+  
+  <div class="col px-0">
+  <h3>Current follow up activity</h3>
+  </div>
+  
+  </div>
+  
+  <div class="row px-4 pt-1">
+  
+  <div class="col px-0">
+  
+  <div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary btn-white active m-0">Call</button>
+  <button type="button" class="btn btn-primary btn-white m-0">SMS</button>
+  <button type="button" class="btn btn-primary btn-white m-0">Email</button>
+  <button type="button" class="btn btn-primary btn-white m-0">Meeting</button>
+</div>
+  
+  </div>
+  
+  </div>
+  
+  <div class="row px-4 py-3 border-bottom">
+  
+  <div class="col px-0">
+  
+  <textarea class="form-control m-0" rows="3" placeholder="Notes"></textarea>
+  
+  </div>
+  
+  </div>
+  
+  <div class="row px-4 pt-3">
+  
+  <div class="col px-0">
+  <h3>Lead status update</h3>
+  </div>
+  
+  </div>
+  
+  <div class="row px-4 pt-1">
+  
+  <div class="col px-0">
+  
+  <div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary btn-white m-0">Hot</button>
+  <button type="button" class="btn btn-primary btn-white m-0">Warm</button>
+  <button type="button" class="btn btn-primary btn-white m-0">Cold</button>
+  <button type="button" class="btn btn-primary btn-white m-0">Lost</button>
+  <button type="button" class="btn btn-primary btn-white m-0">Sold</button>
+  <button type="button" class="btn btn-primary btn-white active m-0">Cancelled</button>
+</div>
+  
+  </div>
+  
+  </div>
+  
+  <div class="row px-4 py-3 border-bottom">
+  
+  <div class="col px-0">
+  
+  <p class="RL15 mb-1">Reason for cancellation</p>
+  <textarea class="form-control m-0" rows="3"></textarea>
+  
+  </div>
+  
+  </div>
+  
+  <div class="row px-4 pt-3">
+  
+  <div class="col px-0">
+  <h3>Next Follow up schedule</h3>
+  </div>
+  
+  </div>
+  
+  <div class="row px-4 pt-1 pb-3 border-bottom">
+  
+  <div class="col-xl-3 col-lg-12 pr-xl-2 px-0 mt-0">
+  <input class="form-control m-0" type="date" placeholder="Date">
+  </div>
+  
+  <div class="col-xl-3 col-lg-12 pr-xl-2 px-0 mt-sm-3 mt-xl-0 mt-3">
+  <input class="form-control m-0" type="time" placeholder="Time">
+  </div>
+  
+  <div class="col-xl-6 col-lg-12 px-0 mt-sm-3 mt-xl-0 mt-3">
+  
+  <div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary btn-white m-0">Call</button>
+  <button type="button" class="btn btn-primary btn-white m-0">SMS</button>
+  <button type="button" class="btn btn-primary btn-white m-0">Email</button>
+  <button type="button" class="btn btn-primary btn-white m-0">Meeting</button>
+</div>
+  
+  </div>
+  
+  </div>
+  
+  <div class="row px-4 py-3">
+  
+  <div class="col px-0">
+  
+  <button type="button" class="btn btn-white my-0 mr-2 px-4">Cancel</button>
+  
+  <button type="button" class="btn btn-blue my-0 px-4">Save</button>
+  
+  </div>
+  
+  </div> -->
+
+  <form [formGroup]="FollowUpForm">
+      <div class="row px-4 pt-3" hidden >
+  
+          <div class="col px-0" *ngIf="hide">
+            <h3>Follow up schedule</h3>
+          </div>
+      </div>
+    
+      <div class="row px-4 pt-1 pb-3 border-bottom" hidden>
+  
+        <div class="col-xl-4 col-lg-12 pr-xl-2 px-0 mt-0 pb-3">
+          
+          <input type="text"
+          formControlName="followupdate"
+          class="form-control m-0"
+          [minDate]="minDate"
+          [maxDate]="maxDate" [bsConfig]="dpConfig"
+          #dp="bsDatepicker"  placement="top left" placeholder="DD MMM YYYY" 
+          bsDatepicker  [ngClass]="{ 'is-invalid':FollowUpForm.controls.followupdate.errors }" readonly>
+        </div>  
+      
+        
+    
+    
+        <!-- <div class="col-xl-0 col-lg-0 col-md-0 col-sm-0 col-0 pr-0 d-flex flex-wrap align-items-center pb-3">
+          <div *ngIf="FollowUpForm.controls.followupdate.errors else path" class="invalid-feedback"
+            class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="FollowUpForm.controls.followupdate.errors else root"><span class="error-msg">*</span>
+            </div>
+            <ng-template #root>
+              <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+            </ng-template>          
+          </div>
+          <ng-template #path>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div> -->
+      </div>
+
+    <div class="row px-4 pt-3">
+  
+      <div class="col px-0">
+        <h3>Current follow up activity</h3>
+      </div>
+  
+    </div>
+  
+    <div class="row px-4 pt-1">
+  
+      <div class="col px-0">
+  
+        <!-- <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-primary btn-white active m-0" formControlName="followupthrough" (click)="followUpthroughCall()">Call</button>
+          <button type="button" class="btn btn-primary btn-white m-0" (click)="followUpthroughSMS()" >SMS</button>
+          <button type="button" class="btn btn-primary btn-white m-0" (click)="followUpthroughEmail()">Email</button>
+          <button type="button" class="btn btn-primary btn-white m-0" (click)="followUpthroughMeeting()">Meeting</button>
+        </div> -->
+  
+  
+        <div class="btn-group" role="group" aria-label="Basic example" *ngFor=" let button of followupthroughbuttons;let i=index">
+            <button type="button"  class="btn btn-primary btn-white m-0" [ngClass]="{ 'active': selectedbutton == button.followupthroughid }" id="{{button.followupthroughid}}" (click)="onClick($event)" >{{button.followupthrough}}</button>
+           
+          </div> 
+  
+      </div>
+      <!---Sai Mahesh-->
+        <!-- <label class="form-control " id="lblfollowupthrough" formControlName="followupthroughid" hidden></label> -->
+    </div>
+  
+    <div class="row px-4 py-3 border-bottom">
+  
+      <div class="col px-0">  
+        <textarea class="form-control m-0"  formControlName="remarks" rows="3" placeholder="Notes"  [ngClass]="{ 'is-invalid':FollowUpForm.controls.remarks.errors }"></textarea>  
+      </div>
+      <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+        <div *ngIf="FollowUpForm.controls.remarks.errors else path" class="invalid-feedback"
+          class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+          <div *ngIf="FollowUpForm.controls.remarks.errors?.required else root"><span class="error-msg">*</span>
+          </div>
+          <ng-template #root>
+            <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+          </ng-template>
+          <!-- <img *ngIf="f.Customername.errors.minlength || f.Customername.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+        </div>
+        <ng-template #path>
+          <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+        </ng-template>
+      </div>
+  
+    </div>
+  
+    <div class="row px-4 pt-3">
+  
+      <div class="col px-0">
+        <h3>Lead status update</h3>
+      </div>
+  
+    </div>
+  
+    <div class="row px-4 pt-1">
+  
+      <div class="col px-0">
+  
+        <!-- <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-primary btn-white m-0">Hot</button>
+          <button type="button" class="btn btn-primary btn-white m-0">Warm</button>
+          <button type="button" class="btn btn-primary btn-white m-0">Cold</button>
+          <button type="button" class="btn btn-primary btn-white m-0">Lost</button>
+          <button type="button" class="btn btn-primary btn-white m-0">Sold</button>
+          <button type="button" class="btn btn-primary btn-white active m-0">Cancelled</button>
+        </div> -->
+  
+         <div class="btn-group" role="group" aria-label="Basic example" *ngFor="let stage of followupstagesbuttons | orderBy:'stageorder'">
+            <button type="button" class="btn btn-primary btn-white m-0"  [ngClass]="{ 'active': stagefollowupbutton == stage.stageid }" id="{{stage.stageid}}" (click)="onClickStage($event)">{{stage.stagename}}</button>         
+         </div>
+  
+      </div>
+      <!---Sai Mahesh-->
+      <!-- <label class="form-control " id="lblfollowupstageid" formControlName="stageid" hidden></label> -->
+    </div>
+  
+    <div class="row px-4 py-3 border-bottom" *ngIf="show">
+  
+      <div class="col px-0">
+  
+        <p class="RL15 mb-1">Reason for cancellation</p>
+        <textarea class="form-control m-0" rows="3" formControlName="reasontocancel"  [ngClass]="{ 'is-invalid':FollowUpForm.controls.reasontocancel.errors }"></textarea>
+  
+      </div>
+      <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+        <div *ngIf="FollowUpForm.controls.reasontocancel.errors else path" class="invalid-feedback"
+          class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+          <div *ngIf="FollowUpForm.controls.reasontocancel.errors?.required else root"><span class="error-msg">*</span>
+          </div>
+          <ng-template #root>
+            <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+          </ng-template>
+          <!-- <img *ngIf="f.Customername.errors.minlength || f.Customername.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+        </div>
+        <ng-template #path>
+          <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+        </ng-template>
+      </div>
+
+  
+    </div>
+  
+    <div class="row px-4 pt-3" >
+  
+      <div class="col px-0" *ngIf="hide">
+        <h3>Next Follow up schedule</h3>
+      </div>
+      <div class="col px-0" *ngIf="Cancelshow">
+        <h3>Cancel Date</h3>
+      </div>
+      <div class="col px-0" *ngIf="Soldshow" >
+        <h3>Sold Date</h3>
+      </div>
+    </div>
+  
+    <!-- <div class="row px-4 pt-1 pb-3 border-bottom">
+  
+      <div class="col-xl-3 col-lg-12 pr-xl-2 px-0 mt-0">
+        <input class="form-control m-0" type="date" placeholder="Date"  formControlName="nextfollowupdate">
+     
+      </div>
+  
+      <div class="col-xl-3 col-lg-12 pr-xl-2 px-0 mt-sm-3 mt-xl-0 mt-3">
+        <input class="form-control m-0" type="time" placeholder="Time" formControlName="Time"  >
+      </div>
+  
+      <div class="col-xl-6 col-lg-12 px-0 mt-sm-3 mt-xl-0 mt-3">
+  
+     
+        <div class="btn-group" role="group" aria-label="Basic example" *ngFor=" let button of followupthroughbuttons;let i=index">
+            <button type="button"  class="btn btn-primary btn-white m-0 " [ngClass]="{ 'active': nextfollowupbutton == button.followupthroughid }"  id="{{button.followupthroughid}}" (click)="onClickNext($event)" >{{button.followupthrough}}</button>
+           
+          </div>
+          <label class="form-control " id="lblnextfollowupthrough" formControlName="nextfollowupthrough" hidden></label>
+          <label class="form-control " id="dealid" formControlName="leadid" hidden></label>
+          <label class="form-control " id="referencefollowupid" formControlName="referencefollowupid" hidden></label>
+      </div>
+  
+    </div>
+   -->
+   
+   <div class="row px-4 pt-1 pb-3 border-bottom" *ngIf="hide">
+  
+    <div class="col-xl-4 col-lg-12 pr-xl-2 px-0 mt-0 pb-3">
+      <!-- <input class="form-control m-0" type="date" placeholder="Date" min="today" formControlName="nextfollowupdate" [ngClass]="{ 'is-invalid':FollowUpForm.controls.nextfollowupdate.errors }"> -->
+      <input type="text"
+      formControlName="nextfollowupdate"
+      class="form-control m-0"
+      [minDate]="minDate"
+      [maxDate]="maxDate" [bsConfig]="dpConfig"
+      #dp="bsDatepicker"  placement="top left" placeholder="{{dateplaceholderformat}}" readonly
+      bsDatepicker [ngClass]="{ 'is-invalid':FollowUpForm.controls.nextfollowupdate.errors }">
+    </div>  
+  
+    <div class="col-xl-4 col-lg-12 pr-xl-2 px-0 mt-sm-3 mt-xl-0 mt-3 pb-3">
+      <input class="form-control m-0" type="time" placeholder="Time" formControlName="nextfollowuptime" [ngClass]="{ 'is-invalid':FollowUpForm.controls.nextfollowuptime.errors }">
+    </div>
+
+
+    <div class="col-xl-0 col-lg-0 col-md-0 col-sm-0 col-0 pr-0 d-flex flex-wrap align-items-center pb-3">
+      <div *ngIf="FollowUpForm.controls.nextfollowupdate.errors || FollowUpForm.controls.nextfollowuptime.errors else path" class="invalid-feedback"
+        class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+        <div *ngIf="FollowUpForm.controls.nextfollowupdate.errors || FollowUpForm.controls.nextfollowuptime.errors?.required else root"><span class="error-msg">*</span>
+        </div>
+        <ng-template #root>
+          <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+        </ng-template>          
+      </div>
+      <ng-template #path>
+        <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+      </ng-template>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 px-0 mt-sm-3 mt-xl-0 mt-3 ">
+
+    
+      <div class="btn-group" role="group" aria-label="Basic example" *ngFor=" let button of followupthroughbuttons;let i=index">
+          <button type="button"  class="btn btn-primary btn-white m-0 " [ngClass]="{ 'active': nextfollowupbutton == button.followupthroughid }"  id="{{button.followupthroughid}}" (click)="onClickNext($event)" >{{button.followupthrough}}</button>
+         
+        </div>
+
+        <!---Sai Mahesh-->
+        <!-- <label class="form-control " id="lblnextfollowupthrough" formControlName="nextfollowupthrough" hidden></label> -->
+        <!-- <label class="form-control " id="dealid" formControlName="leadid" hidden></label> -->
+        <!-- <label class="form-control " id="referencefollowupid" formControlName="referencefollowupid" hidden></label> -->
+    </div>
+
+  </div>
+   
+  <div class="row px-4 pt-1 pb-3 border-bottom" *ngIf="Dateshow">
+  
+    <div class="col-xl-4 col-lg-12 pr-xl-2 px-0 mt-0 pb-3">
+      <!-- <input class="form-control m-0" type="date" placeholder="Date" min="today" formControlName="canceldate" [ngClass]="{ 'is-invalid':FollowUpForm.controls.canceldate.errors }"> -->
+      <input type="text"
+      formControlName="canceldate"
+      class="form-control m-0"
+      [minDate]="minDate"
+      [maxDate]="maxDate" [bsConfig]="dpConfig"
+      #dp="bsDatepicker"  placement="top left" placeholder="DD MMM YYYY" readonly
+      bsDatepicker  [ngClass]="{ 'is-invalid':FollowUpForm.controls.canceldate.errors }">
+    </div>  
+  
+    
+
+
+    <div class="col-xl-0 col-lg-0 col-md-0 col-sm-0 col-0 pr-0 d-flex flex-wrap align-items-center pb-3">
+      <div *ngIf="FollowUpForm.controls.canceldate.errors else path" class="invalid-feedback"
+        class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+        <div *ngIf="FollowUpForm.controls.canceldate.errors else root"><span class="error-msg">*</span>
+        </div>
+        <ng-template #root>
+          <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+        </ng-template>          
+      </div>
+      <ng-template #path>
+        <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+      </ng-template>
+    </div>
+
+    
+
+  </div>
+   
+  <div class="row px-4 pt-1 pb-3 border-bottom" *ngIf="SoldDateshow">
+  
+      <div class="col-xl-4 col-lg-12 pr-xl-2 px-0 mt-0 pb-3">
+        <!-- <input class="form-control m-0" type="date" placeholder="Date" min="today" formControlName="solddate" [ngClass]="{ 'is-invalid':FollowUpForm.controls.solddate.errors }"> -->
+        <input type="text"
+        formControlName="solddate"
+        class="form-control"
+        [minDate]="minDate"
+        [maxDate]="maxDate" [bsConfig]="dpConfig1"
+        #dp="bsDatepicker"  placement="top left" placeholder="DD MMM YYYY" readonly
+        bsDatepicker  [ngClass]="{ 'is-invalid':FollowUpForm.controls.solddate.errors }">
+      </div>  
+    
+      
+  
+  
+      <div class="col-xl-0 col-lg-0 col-md-0 col-sm-0 col-0 pr-0 d-flex flex-wrap align-items-center pb-3">
+        <div *ngIf="FollowUpForm.controls.solddate.errors else path" class="invalid-feedback"
+          class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+          <div *ngIf="FollowUpForm.controls.solddate.errors else root"><span class="error-msg">*</span>
+          </div>
+          <ng-template #root>
+            <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+          </ng-template>          
+        </div>
+        <ng-template #path>
+          <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+        </ng-template>
+      </div>
+  
+      
+  
+    </div>
+
+
+   <div class="row px-4 py-3">
+  
+      <div class="col px-0">
+  
+        <button type="button" class="btn btn-white my-0 mr-2 px-4" (click)="clear()">Cancel</button>
+  
+        <button type="submit" (click)="FollowUpSave()" class="btn btn-blue my-0 px-4">Save</button>
+  
+      </div>
+  
+    </div>
+  </form>

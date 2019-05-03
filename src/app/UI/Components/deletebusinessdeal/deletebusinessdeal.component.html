@@ -1,0 +1,81 @@
+<div class="modal-header">
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+
+    <div class="container">
+
+        <div class="row mb-4">
+
+            <div class="col-8 custom-modal-sm">
+                <form [formGroup]="deleteform" (ngSubmit)="onSubmit()">
+                    <div class="row border-bottom mb-4">
+
+                        <div class="col-12">
+                            <h2>Delete business deal</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="row border-bottom">
+
+                        <div class="col-12">
+                            <h3 class="QM14">Delete deal</h3>
+                            <p class="RL15">{{dealname}} INR: {{dealvalue | currency: 'INR':'symbol':'1.0-0'}}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="row pt-4">
+
+                        <div class="col-12">
+                            <h3 class="RB15">Merge above business deal data with:</h3>
+                            <p class="RL15">All references to the old business deal will be merged with:</p>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-12">
+                            <!-- <div class="dropdown">
+                                <button class="btn btn-white dropdown-toggle w-100 text-left m-0" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Select business deal to merge with
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Select business deal to merge with</a>
+                                </div>
+                            </div> -->
+                            <select class="form-control" placeholder="Select business deal, (or) add new deal" formControlName="transferdealid" (change)="selectbussiness()"
+                            [ngClass]="{ 'is-invalid':f.transferdealid.errors }">
+                            <option value="" ng-selected="selected">Select business deal to merge with</option>
+                            <option *ngFor="let transferdealid  of dealids;trackBy: trackByFn" [value]="transferdealid.dealid"> {{transferdealid.dealname}}</option>
+                          </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row pt-5">
+
+                        <div class="col-12 text-sm-right">
+
+                            <button type="button" (click)="Cancel()" class="btn btn-white mt-0 mr-2 mb-3 mb-sm-0 px-4">Cancel</button>
+                            <button type="submit" class="btn btn-blue my-0 px-4">Confirm delete</button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

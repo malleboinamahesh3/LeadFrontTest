@@ -1,0 +1,102 @@
+<div class="modal-header">
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+
+    <div class="container">
+
+        <div class="row mb-4">
+
+            <div class="col-8 custom-modal-sm">
+                <form [formGroup]="editform" (ngSubmit)="onSubmit()">
+                <div class="row border-bottom mb-4">
+
+                    <div class="col-12">
+                        <h2>Edit business deal</h2>
+                    </div>
+
+                </div>
+               
+                    <div class="row">
+
+                        <div class="col-12">
+                            <h3 class="RB15 float-left">{{dealname}}</h3>
+                            <p class="RL15 ml-sm-3 mb-0 float-left">INR:
+                                {{dealvalue | currency: 'INR':'symbol':'1.0-0'}}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="row py-2">
+
+                        <div class="col-11">
+                            <!-- <input type="text" class="form-control m-0" formControlName="DealName" placeholder="Deal Name"> -->
+                            <div class="input-group">
+
+                                <input type="text" class="form-control" formControlName="DealName"
+                                    (keypress)="CharactersOnly($event)" maxlength="100" placeholder="Deal Name" [ngClass]="{ 'is-invalid': f.DealName.errors }">
+                            </div>
+                        </div>
+                        <div class="col-sm-1 col-2">
+                            <div *ngIf="editform.controls.DealName.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                                  <div *ngIf="editform.controls.DealName.errors?.required else root"><span class="error-msg">*</span></div>
+                                  <ng-template #root>
+                                    <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                                  </ng-template>
+                                </div>
+                                <ng-template #path>
+                                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                                </ng-template>
+                        </div>
+
+                    </div>
+
+                    <div class="row py-3">
+
+                        <div class="col-11">
+                            <!-- <input type="text" class="form-control m-0" formControlName="DealValue" placeholder="Deal Value"> -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text prepend-cst" id="basic-addon1"> ₹ </span>
+                                </div>
+                                <input type="text" class="form-control form-control-cst" formControlName="DealValue"
+                                    (keypress)="numberOnly($event)" maxlength="10" placeholder="Deal Value" [ngClass]="{ 'is-invalid': editform.controls.DealValue.errors }">
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-1 col-2">
+                            <div *ngIf="editform.controls.DealValue.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                                  <div *ngIf="editform.controls.DealValue.errors?.required else root"><span class="error-msg">*</span></div>
+                                  <ng-template #root>
+                                    <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                                  </ng-template>
+                                </div>
+                                <ng-template #path>
+                                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                                </ng-template>
+                        </div>
+
+                    </div>
+
+                    <div class="row pt-5">
+
+                        <div class="col-12 text-sm-right">
+
+                            <button type="button" (click)="Cancel()" class="btn btn-white mt-0 mr-2 mb-3 mb-sm-0 px-4">Cancel</button>
+                            <button type="submit" class="btn btn-blue my-0 px-4">Save</button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

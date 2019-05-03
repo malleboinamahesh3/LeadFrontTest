@@ -1,0 +1,59 @@
+<div class="modal-header">
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+
+    <div class="container">
+
+        <div class="row mb-4">
+
+            <div class="col-md-8 custom-modal-sm">
+                <form [formGroup]="deletechannelform" (ngSubmit)="onSubmit()">
+                    <div class="row border-bottom mb-3">
+
+                        <div class="col-12">
+                            <h2>Delete channel partner</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="row py-2">
+
+                        <div class="col-12">
+                            <p class="QM14 mb-0">{{CPname}}</p>
+                            <p class="mb-0"><a href="#" class="RL13">{{CPemail}}</a></p>
+                            <p class="RL15 mb-0">Mobile: +91 {{CPcontact}}</p>
+                            <p class="RL13 mb-0 mt-3" *ngIf="Hide">Bank name:</p>
+                            <p class="RL15 mb-0" *ngIf="Hide">{{BankAccName}}</p>
+                            <p class="RL13 mb-0 mt-3" *ngIf="Hide">Bank account number:</p>
+                            <p class="RL15 mb-0" *ngIf="Hide">{{BankAccNo}}</p>
+                            <p class="RL13 mb-0 mt-3" *ngIf="Hide">Bank account type:</p>
+                            <p class="RL15 mb-0" *ngIf="Hide">{{BankAccType}}</p>
+                            <p class="RL13 mb-0 mt-3" *ngIf="Hide">IFSC code:</p>
+                            <p class="RL15 mb-0" *ngIf="Hide">{{BankIFSC}}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="row pt-3">
+
+                        <div class="col-12 text-sm-right">
+
+                            <button type="button" (click)="Cancel()" class="btn btn-white my-0 mr-2 px-4">Cancel</button>
+                            <button type="submit" class="btn btn-blue my-0 px-4">Confirm Delete</button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

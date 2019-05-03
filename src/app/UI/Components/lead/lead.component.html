@@ -1,0 +1,427 @@
+<form [formGroup]="LeadForm" (ngSubmit)="onSubmit()">
+
+    <!-- <input type="text"
+    class="form-control"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    #dp="bsDatepicker"
+    [bsConfig]="dpConfig"
+    bsDatepicker [(bsValue)]="myDateValue"> -->
+
+  <div class="form-box mb-3 float-left">
+
+    <div class="form-title-box">
+      <h2>1. Add lead details<button type="button" class="btn btn-white float-right mt-3"><img width="20px" height="20px"
+            class="mr-2" src="assets/images/import-active.svg" />Import leads</button></h2>
+      <h6>More the data, better the results!</h6>
+    </div>
+
+    <div class="container px-5 pt-5 px-3 pl-xs-10 pr-xs-25" >
+      
+      
+       <div class="row" hidden>
+
+        <div class="col-11 pr-0">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text prepend-cst" id="basic-addon1">Lead Date</span>
+            </div>
+            <input type="text"
+          formControlName="leaddate"
+          class="form-control pointer-cst"
+          [minDate]="minDate"
+          [maxDate]="maxDate" [bsConfig]="dpConfig"
+          #dp="bsDatepicker"  placement="bottom left" placeholder="DD MMM YYYY" 
+          bsDatepicker  [ngClass]="{ 'is-invalid':LeadForm.controls.leaddate.errors }" readonly>
+          </div>
+        </div>
+
+        <!-- <div class="col-1 pr-0 d-flex flex-wrap align-items-center">
+
+          <div class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.dealvalue.errors?.required"><span class="error-msg">*</span></div>
+             <img *ngIf="f.dealid.errors.minlength || f.dealid.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> --
+          </div>
+        </div> -->
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 pr-0">
+
+
+          <select class="form-control" placeholder="Title" formControlName="title" [ngClass]="{ 'is-invalid': f.title.errors }">
+            <option value="" ng-selected="selected">Title</option>
+            <option *ngFor="let title of titles ;trackBy: trackByFn" [value]="title.name"> {{title.name}}</option>
+          </select>
+
+
+        </div>
+
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-11 pr-0">
+
+          <!-- <input formControlName="Customername" class="form-control" type="text" placeholder="Full name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Customername.errors }" > -->
+          <!-- <input type="text" placeholder="Full Name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Customername.errors }" /> -->
+          <input type="text" formControlName="Customername" maxlength="100" class="form-control" (keypress)="CharactersOnly($event)"
+            placeholder="Full Name" [ngClass]="{ 'is-invalid': f.Customername.errors }" />
+        </div>
+
+        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.Customername.errors || f.title.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.Customername.errors?.required || f.title.errors?.required else root"><span class="error-msg">*</span></div>
+            <ng-template #root>
+              <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+            </ng-template>
+            <!-- <img *ngIf="f.Customername.errors.minlength || f.Customername.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+          </div>
+          <ng-template #path>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 pr-0">
+
+    
+          <div class="form-group mb-0">
+            <select class="form-control" placeholder="Country" formControlName="countrycode" (change)="selectdrop($event)"
+              [ngClass]="{ 'is-invalid': f.country.errors }">
+              <option value="" ng-selected="selected">Country</option>
+              <option *ngFor="let countrycode  of CountryList;trackBy: trackByFn" [value]="countrycode.code"> {{countrycode.name}} - ({{countrycode.code}}) </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-11 pr-0">
+          <div class="input-group">
+            <div class="input-group-prepend" hidden>
+              <span class="input-group-text prepend-cst" id="basic-addon1">{{text}}</span>
+            </div>
+            <input class="form-control" type="text" formControlName="contactno" (keypress)="numberOnly($event)"
+             maxlength="10" placeholder="Phone" [ngClass]="{ 'is-invalid': f.contactno.errors }">
+          </div> 
+        </div>
+
+        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.contactno.errors || f.countrycode.errors else path" class="invalid-feedback col-12 " class="col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.contactno.errors?.required || f.countrycode.errors?.required else root"><span class="error-msg">*</span></div>
+            <ng-template #root>
+              <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+            </ng-template>
+            <!-- <img *ngIf="f.contactno.errors?.minlength || f.contactno.errors?.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+          </div>
+          <ng-template #path>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+
+      </div>
+
+
+
+      <div formArrayName="MobileNosAlt">
+
+        <div class="btnhide" *ngIf="ShowElement">
+
+          <div *ngFor="let unit of LeadForm.controls.MobileNosAlt.controls; let i=index ;trackBy: trackByFn" [formGroupName]="i">
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 pr-0">
+
+              
+                <div class="form-group mb-0">
+                  <select class="form-control" placeholder="Country" formControlName="countryduplicate" (change)="select($event)"
+                    [ngClass]="{ 'is-invalid': f.country.errors }">
+                    <option value="" ng-selected="selected">Country</option>
+                    <option *ngFor="let countryduplicate  of CountryList;trackBy: trackByFn" [value]="countryduplicate.code">
+                      {{countryduplicate.name}} - ({{countryduplicate.code}})</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-11 pr-0">
+                <div class="input-group">
+                  <div class="input-group-prepend" hidden>
+                    <span class="input-group-text" id="basic-addon1">{{textdata}}</span>
+                  </div>
+                  <input class="form-control" type="text" formControlName="altmobileno" (blur)="ChekDuplicateNos()"  (keypress)="numberOnly($event)"
+                    maxlength="10" placeholder="Phone">
+                </div>
+
+              </div>
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+
+                <div class="input-group-prepend">
+
+                  <div (click)="removeUnit(i)" style="cursor:pointer;">
+                    <img width="10px" height="10px" alt="correct" src="assets/images/close-button.png" />
+                  </div>
+                </div>
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="col-11 pr-0">
+          <button *ngIf="LeadForm.controls.MobileNosAlt.controls.length <1" type="button" class="btn button-sm" (click)="addUnit(i)">
+            <img src="assets/images/add-active.svg" width="16px" height="16px" alt="remove" class="mr-2 mb-1" />Add
+            alternate phone</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class=" col-11 pr-0">
+          <input type="email" formControlName="email" class="form-control" maxlength="50" placeholder="Email" [ngClass]="{ 'is-invalid':f.email.errors }"
+            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" />
+        </div>
+
+
+        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.email.errors else emailverify" class="invalid-feedback " class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.email.errors?.required"><span class="error-msg">*</span></div>
+            <img *ngIf="f.email.errors?.email || f.email.errors.pattern" width="16px" height="16px" src="assets/images/exclamation.svg"
+              alt="correct" />
+          </div>
+          <ng-template #emailverify>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+
+      </div>
+
+
+      <!-------------------------------------->
+      <div class="row">
+
+        <div class="col-xl-8 col-lg-9 col-md-9 col-sm-9 col-8">
+          <!-- <input type="text" class="form-control" formControlName="dealid" placeholder="Select business deal, (or) add new deal"> -->
+          <!-- <div class="form-group"> -->
+          <select class="form-control" placeholder="Select business deal, (or) add new deal" formControlName="dealid" (change)="selectbussiness()"
+            [ngClass]="{ 'is-invalid':f.dealid.errors }">
+            <option value="" ng-selected="selected">Select Deal</option>
+            <option *ngFor="let dealid  of dealids;trackBy: trackByFn" [value]="dealid.dealid"> {{dealid.dealname}}</option>
+          </select>
+          <!-- </div> -->
+        </div>
+
+        <div class="col-xl-3 col-lg-2 col-md-2 col-sm-2 col-3 px-0 text-center" data-toggle="modal" data-target="#newdeal">
+
+          <div class="custom-btn pt-2"><img class="mr-2" width="16px" height="16px" src="assets/images/select-active.svg">Add
+            Deal</div>
+
+        </div>
+
+        <div class="col-1 pr-0 d-flex flex-wrap align-items-center">
+
+
+          <div *ngIf="f.dealid.errors else path" class="invalid-feedback " class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.dealid.errors?.required"><span class="error-msg">*</span></div>
+            <!-- <img *ngIf="f.dealid.errors.minlength || f.dealid.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+          </div>
+          <ng-template #path>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+
+        </div>
+
+      </div>
+      <!----------------------------------->
+
+
+
+
+
+
+      <div class="row">
+
+        <div class="col-11 pr-0">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text prepend-cst" id="basic-addon1">{{symbol}} </span>
+            </div>
+            <input appMycurrencyFormatter type="text" class="form-control form-control-cst" formControlName="dealvalue" (keypress)="numberOnly($event)"
+              maxlength="10" placeholder="Deal value" [ngClass]="{ 'is-invalid':f.dealvalue.errors }">
+          </div>
+        </div>
+
+        <div class="col-1 pr-0 d-flex flex-wrap align-items-center">
+
+          <div *ngIf="f.dealvalue.errors else path" class="invalid-feedback " class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.dealvalue.errors?.required"><span class="error-msg">*</span></div>
+            <!-- <img *ngIf="f.dealid.errors.minlength || f.dealid.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+          </div>
+          <ng-template #path>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-11 pr-0"><textarea class="form-control" rows="3" formControlName="query" maxlength="500" placeholder="NOTES :"></textarea></div>
+
+        <div class="col-1 pr-0 d-flex flex-wrap align-items-center">
+          <!-- <div *ngIf="f.query.errors else path" class="invalid-feedback "class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+           <div *ngIf="f.query.errors?.required"><span class="error-msg">*</span></div>
+       </div>
+       <ng-template #path>
+               <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg"/></div>
+           </ng-template> -->
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-xl-8 col-lg-9 col-md-9 col-sm-9 col-8">
+          <input type="text" [(ngModel)]="newsourcesubsource" [ngModelOptions]="{standalone: true}" name="newsourcesubsource"
+            class="form-control pointer-cst" placeholder="Select Source" readonly data-toggle="modal" data-target="#leadSource">
+
+        </div>
+
+        <div class="col-xl-3 col-lg-2 col-md-2 col-sm-2 col-3 px-0 text-center" data-toggle="modal" data-target="#leadSource">
+
+          <div class="custom-btn pt-2"><img class="mr-2" width="16px" height="16px" src="assets/images/select-active.svg" />Select</div>
+
+        </div>
+
+        <div class="col-1 pr-0 d-flex flex-wrap align-items-center">
+          <!-- 
+ <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct" /> -->
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <!-- <div class="col pr-0"><button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn button-sm"><img class="mr-2" width="16px" height="16px" src="assets/images/more-active.svg"/>Add more details</button></div> -->
+      </div>
+
+      <div class="row">
+        <div class="col pr-0"><button type="button" data-toggle="modal" data-target="#addmore-company" class="btn button-sm"><img
+              class="mr-2" width="16px" height="16px" src="assets/images/more-active.svg" />Add more details</button></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="form-box mb-3 float-left">
+
+    <div class="form-title-box">
+      <h2>2. Assign</h2>
+      <h6>Assign the lead to a team member</h6>
+    </div>
+
+    <div class="container px-5 pt-5 pl-xs-10 pr-xs-25">
+
+      <div class="row">
+
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 pr-0">
+          <input [(ngModel)]="userFilter.ManagerName" [ngModelOptions]="{standalone: true}" type="search" class="form-control"
+            placeholder="Manager / Sales personnel name">
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pr-0">
+          <button type="button" data-toggle="modal" data-target="#invite" class="btn btn-white"><img class="mr-2" width="16px"
+              height="16px" src="assets/images/invite-active.svg" />Invite</button>
+        </div>
+
+      </div>
+      <!-- <li *ngFor="let Emp of EmployeeData" >{{Emp.ManagerName}}
+    <ul *ngFor="let Exe of Emp.ExeCutivdetailsInfo">
+      <li>{{Exe.ExecutiveName}}</li>
+      
+    </ul>
+  </li> -->
+      <div class="col o-flow-auto pr-0">
+        <ul class="assign-ul">
+          <li *ngFor="let Emp of EmployeeData | filterBy: userFilter ;trackBy: trackByFn">
+            <div class="form-check mt-2">
+              <input class="form-check-input radio" type="radio" (change)="GetManagerAndExecutiveId(Emp)" name="exampleRadios"
+                id="exampleRadios1" value="{{Emp.ManagerId}}">
+              <label class="form-check-label" for="exampleRadios1">
+                {{Emp.ManagerName}}
+              </label>
+            </div>
+            <ul>
+              <li class="form-check mt-2" *ngFor="let Exe of Emp.ExeCutivdetailsInfo ;trackBy: trackByFn">
+                <input class="form-check-input" (change)="GetManagerAndExecutiveId(Exe)" type="radio" name="exampleRadios"
+                  id="exampleRadios2" value="{{Exe.ExecutiveId}}">
+                <label class="form-check-label" for="exampleRadios2">
+                  {{Exe.ExecutiveName}}
+                </label>
+              </li>
+
+            </ul>
+          </li>
+          <!-- <li *ngIf="(EmployeeData | filterBy: userFilter).length === 0">
+        No matching elements
+      </li> -->
+        </ul>
+
+      </div>
+      <!-- <button (click)="SaveLeadEntry()" type="submit" class="btn btn-blue">Save</button> -->
+      <div class="col pr-0">
+
+        <button type="submit" class="btn btn-blue mr-2 mb-3">Save lead</button>
+
+        <button type="button" (click)="SaveLeadEntry()" class="btn btn-white mb-3">Save and add new lead</button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!------Lead Source Modal------->
+  <div class="modal fade pl-0" id="leadSource" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <app-source (OutputToparent)="getsourcedata($event)"></app-source>
+      </div>
+
+    </div>
+  </div>
+
+  <!------Invite Team Modal------->
+  <div class="modal fade pl-0" id="invite" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <app-inviteteam (InviteTeamUpdate)="UpdateofInviteTeam()"></app-inviteteam>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!------company details Modal------->
+  <div class="modal fade pl-0" id="addmore-company" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <app-details></app-details>
+      </div>
+
+    </div>
+  </div>
+  <!------New business deal Modal------->
+  <div class="modal fade pl-0" id="newdeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <app-businessdeal (DealListUpdate)="UpdateDeals()"></app-businessdeal>
+      </div>
+
+    </div>
+  </div>
+</form>

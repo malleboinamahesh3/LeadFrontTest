@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>LEADFRONT</title>
+
+  <base href="/">
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- <link rel="stylesheet" type="text/css" media="screen, print" href="https://cdn.materialdesignicons.com/2.3.54/css/materialdesignicons.min.css" /> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="../src/app/UI/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../src/app/UI/css/custom.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.7/css/select.dataTables.min.css">
+  <link rel="stylesheet" href="../src/app/UI/css/dataTables.checkboxes.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet"  type="text/css"  href="../src/app/UI/css/bs-datepicker.css">
+  
+  
+  
+  <style>
+    .dataTables_filter {
+                 margin-top: -55px ;
+            }
+            .dataTables_filter input{
+                height: 32px !important;
+            }
+            .dataTables_filter input::placeholder {
+                color:#333 !important;
+                font-weight: 500;
+                font-size: 12px;
+            }
+    table.dataTable.select tbody tr,
+    table.dataTable thead th:first-child {
+      cursor: pointer;
+    }
+
+    /* table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+  }
+          .fixedHeader-floating {
+  overflow: hidden;
+} */
+
+  </style>
+
+  <!-- DataTable Css -->
+  <!-- <link rel="stylesheet" href="../src/app/UI/css/material.min.css"> -->
+  <!-- <link rel="stylesheet" href="../src/app/UI/css/dataTables.material.min.css"> -->
+  <!-- <link rel="stylesheet" href="../src/app/UI/css/buttons.dataTables.min.css"> -->
+
+
+  <!-- <link rel="stylesheet" type="text/css" href="/node_modules/angular5-toaster/toaster.css" /> -->
+
+</head>
+
+<body>
+  <app-root></app-root>
+  <!-- ===================================================================================== required js ========================================================================================= -->
+
+</body>
+
+<!-- <script src="../src/app/UI/js/jquery-3.3.1.slim.min.js"></script> -->
+<script src="../src/app/UI/js/popper.min.js"></script>
+<script src="../src/app/UI/js/bootstrap.min.js"></script>
+<script src="../src/app/UI/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script>
+    $(function () {
+      $("#datepicker,#datepicker1").datepicker({ 
+            autoclose: true, 
+            todayHighlight: true
+      }).datepicker('update', new Date());
+     
+    });
+</script>
+
+<!-- <script src="../src/app/UI/js/jquery.dataTables.min.js"></script>
+<script src="../src/app/UI/js/dataTables.bootstrap4.min.js"></script>
+<script src="../src/app/UI/js/dataTables.fixedHeader.min.js"></script>
+<script src="../src/app/UI/js/dataTables.select.min.js"></script>
+<script src="../src/app/UI/js/dataTables.checkboxes.min.js"></script>
+
+<script src="../src/app/UI/js/dataTables.buttons.min.js"></script>
+<script src="../src/app/UI/js/buttons.flash.min.js"></script>
+<script src="../src/app/UI/js/jszip.min.js"></script>
+<script src="../src/app/UI/js/pdfmake.min.js"></script>
+<script src="../src/app/UI/js/vfs_fonts.js"></script>
+<script src="../src/app/UI/js/buttons.html5.min.js"></script>
+<script src="../src/app/UI/js/buttons.print.min.js"></script> -->
+
+<!-- <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script> -->
+
+<script>
+  // $(document).ready(function () {
+  //     $('#example').DataTable({
+  //         columnDefs: [{
+  //             orderable: false,
+  //             className: 'select-checkbox',
+  //             targets: 0
+  //         }],
+  //         select: {
+  //             style: 'os',
+  //             selector: 'td:first-child'
+  //         },
+  //         order: [
+  //             [1, 'asc']
+  //         ]
+  //     });
+  // });
+
+
+
+  
+
+
+  // Updates "Select all" control in a data table
+
+  function updateDataTableSelectAllCtrl(table) {
+    var $table = table.table().node();
+    var $chkbox_all = $('tbody input[type="checkbox"]', $table);
+    var $chkbox_checked = $('tbody input[type="checkbox"]:checked', $table);
+    var chkbox_select_all = $('thead input[name="select_all"]', $table).get(0);
+
+    // If none of the checkboxes are checked
+    if ($chkbox_checked.length === 0) {
+      chkbox_select_all.checked = false;
+      if ('indeterminate' in chkbox_select_all) {
+        chkbox_select_all.indeterminate = false;
+      }
+
+      // If all of the checkboxes are checked
+    } else if ($chkbox_checked.length === $chkbox_all.length) {
+      chkbox_select_all.checked = true;
+      if ('indeterminate' in chkbox_select_all) {
+        chkbox_select_all.indeterminate = false;
+      }
+
+      // If some of the checkboxes are checked
+    } else {
+      chkbox_select_all.checked = true;
+      if ('indeterminate' in chkbox_select_all) {
+        chkbox_select_all.indeterminate = true;
+      }
+    }
+  }
+
+  $('#example').scroll(function () {
+    if ($(".fixedHeader-floating").is(":visible")) {
+      $(".fixedHeader-floating").scrollLeft($(this).scrollLeft());
+    }
+  });
+
+  $(document).ready(function () {
+    // Array holding selected row IDs
+    var rows_selected = [];
+    var table = $('#example').DataTable({
+      // 'ajax': {
+      //     'url': '/lab/articles/jquery-datatables-checkboxes/ids-arrays.txt'
+      // },
+      "bPaginate": false,
+      "searching": false, // Search Box will Be Disabled
+      "fixedHeader": true,
+
+      // "ordering": false,    // Ordering (Sorting on Each Column)will Be Disabled
+
+      "info": true, // Will show "1 to n of n entries" Text at bottom
+      'columnDefs': [{
+        'targets': 0,
+        'searchable': false,
+        'orderable': false,
+        'width': '1%',
+        'className': 'dt-body-center',
+        'render': function (data, type, full, meta) {
+          return '<input type="checkbox">';
+        }
+      }],
+      'order': [
+        [1, 'asc']
+      ],
+      'rowCallback': function (row, data, dataIndex) {
+        // Get row ID
+        var rowId = data[0];
+
+        // If row ID is in the list of selected row IDs
+        if ($.inArray(rowId, rows_selected) !== -1) {
+          $(row).find('input[type="checkbox"]').prop('checked', true);
+          $(row).addClass('selected');
+        }
+      }
+    });
+
+    // Handle click on checkbox
+    $('#example tbody').on('click', 'input[type="checkbox"]', function (e) {
+      var $row = $(this).closest('tr');
+
+      // Get row data
+      var data = table.row($row).data();
+
+      // Get row ID
+      var rowId = data[0];
+
+      // Determine whether row ID is in the list of selected row IDs
+      var index = $.inArray(rowId, rows_selected);
+
+      // If checkbox is checked and row ID is not in list of selected row IDs
+      if (this.checked && index === -1) {
+        rows_selected.push(rowId);
+
+        // Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
+      } else if (!this.checked && index !== -1) {
+        rows_selected.splice(index, 1);
+      }
+
+      if (this.checked) {
+        $row.addClass('selected');
+      } else {
+        $row.removeClass('selected');
+      }
+
+      // Update state of "Select all" control
+      updateDataTableSelectAllCtrl(table);
+
+      // Prevent click event from propagating to parent
+      e.stopPropagation();
+    });
+
+    // Handle click on table cells with checkboxes
+    $('#example').on('click', 'tbody td:not(:first-child), thead th:first-child', function (e) {
+      $('#FreshBusinessDeal').modal('show');
+    });
+
+    $('#example').on('click', 'tbody td:first-child, thead th:first-child', function (e) {
+      $(this).parent().find('input[type="checkbox"]').trigger('click');
+    });
+
+    // Handle click on "Select all" control
+    $('thead input[name="select_all"]', table.table().container()).on('click', function (e) {
+      if (this.checked) {
+        $('#example tbody input[type="checkbox"]:not(:checked)').trigger('click');
+      } else {
+        $('#example tbody input[type="checkbox"]:checked').trigger('click');
+      }
+
+      // Prevent click event from propagating to parent
+      e.stopPropagation();
+    });
+
+    // Handle table draw event
+    table.on('draw', function () {
+      // Update state of "Select all" control
+      updateDataTableSelectAllCtrl(table);
+    });
+
+    // Handle form submission event
+    $('#frm-example').on('submit', function (e) {
+      var form = this;
+
+      // Iterate over all selected checkboxes
+      $.each(rows_selected, function (index, rowId) {
+        // Create a hidden element
+        $(form).append(
+          $('<input>')
+          .attr('type', 'hidden')
+          .attr('name', 'id[]')
+          .val(rowId)
+        );
+      });
+    });
+
+  });
+
+</script>
+
+
+<script>
+  $('#lead-data-tab li').click(function (e) {
+    // e.preventDefault();
+    $(this).find('a').tab('show');
+
+  });
+
+</script>
+
+<style>
+  #lead-data-tab a {
+    text-decoration: none;
+    color: #111;
+  }
+
+</style>
+
+</html>

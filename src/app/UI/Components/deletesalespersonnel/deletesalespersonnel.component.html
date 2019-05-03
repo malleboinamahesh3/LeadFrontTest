@@ -1,0 +1,84 @@
+<div class="modal-header">
+
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+
+  <div class="container">
+
+      <div class="row">
+
+          <div class="col-8 custom-modal-sm">
+
+              <div class="row border-bottom mb-3">
+
+                  <div class="col-12">
+                      <h2>Delete sales personnnel</h2>
+                  </div>
+
+              </div>
+
+              <div class="row pb-3 border-bottom">
+
+                  <div class="col-12">
+                  <p class="mb-0 RL15">{{employeename}}</p>
+                  <p class="mb-0 RL15">{{email}}</p>
+                  <p class="mb-0 RL15">Mobile: {{countrycode}}-{{mobileno}}</p>
+                  <p class="mb-0 RL15">Role: {{designationname}}</p>
+                  <p class="mb-0 RL15">Annual CTC: {{ctc}}</p>
+                  <p class="mb-0 RL15">Joining date: {{employeedoj | date: 'dd MMM yyyy'}}</p>
+                  </div>
+
+              </div>
+
+              <div class="row py-2 border-bottom">
+
+                  <div class="col pr-0 RL15 mb-3 mb-sm-0">
+                  Transfer all leads to
+                  </div>
+
+                  <div class="col">
+                  
+                  <div class="dropdown">
+
+                          <button class="btn btn-white dropdown-toggle m-0 text-left w-100" type="button"
+                              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                              Across team
+                          </button>
+
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="#">Across all team</a>
+                              <a class="dropdown-item" href="#">Sales personnel 1</a>
+                              <a class="dropdown-item" href="#">Sales personnel 2</a>
+                              <a class="dropdown-item" href="#">Sales personnel 3</a>
+                              <a class="dropdown-item" href="#">Sales personnel 4</a>
+                          </div>
+
+                      </div>
+                      
+                  </div>
+
+              </div>
+
+              <div class="row pt-3">
+
+                  <div class="col-12 text-sm-right">
+
+                      <button type="button" class="btn btn-white mt-0 mr-2 mb-3 mb-sm-0 px-4">Cancel</button>
+                      <button type="button" class="btn btn-blue my-0 px-4">Transfer leads and delete</button>
+
+                  </div>
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+</div>

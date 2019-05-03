@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <!-- data-dismiss="modal" -->
+    <button type="button" class="close"  (click)="clear()"  aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col border-bottom">
+          <h2>Add Designation</h2>
+          <h6>Here we can add new designation</h6>
+        </div>
+      </div>
+      <form [formGroup]="designationform" (ngSubmit)="onSubmit()">
+        <!-- <div class="row"> -->
+        <div class="form-group">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-11 col-lg-11 col-xl-11 pr-0">
+              <input type="text" formControlName="designationname" maxlength="75" class="form-control" placeholder="Designation" [ngClass]="{ 'is-invalid': f.designationname.errors }" />
+            </div>
+            <div *ngIf="f.designationname.errors else path" class="invalid-feedback col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+              <!-- <span *ngIf="f.Deal.errors.required">*</span> -->
+              <div *ngIf="f.designationname.errors.required">
+                <span class="error-msg">*</span></div>
+              <!-- <img *ngIf="f.designationname.errors.minlength || f.designationname.errors.maxlength">Password must be at least 6 characters</div> -->
+              <img *ngIf="f.designationname.errors.minlength || f.designationname.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg"
+                alt="correct" />
+            </div>
+            <ng-template #path>
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center"><img width="16px"
+                  height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+        </div>
+  
+        <div class="form-group" hidden>
+          <div class="row" >
+            <div class="col-12 col-sm-12 col-md-11 col-lg-11 col-xl-11 pr-0">
+              <input type="text" formControlName="designationid" class="form-control" (keypress)="numberOnly($event)" maxlength="10"
+                placeholder="Designation Id" [ngClass]="{ 'is-invalid': f.designationid.errors }" />
+            </div>
+            <div *ngIf="f.designationid.errors else path" class="invalid-feedback col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+              <!-- <span *ngIf="f.designationid.errors.required">*</span> -->
+              <div *ngIf="f.designationid.errors.required">
+                <span class="error-msg">*</span></div>
+              <!-- <img *ngIf="f.designationid.errors.minlength || f.designationid.errors.maxlength">Password must be at least 6 characters</div> -->
+              <img *ngIf="f.designationid.errors.minlength || f.designationid.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg"
+                alt="correct" />
+            </div>
+            <ng-template #path>
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center"><img width="16px"
+                  height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+        </div>
+  
+  
+        <div class="col-11 pr-0 text-right">
+          <button class="btn btn-white px-4">Add</button>
+        </div>
+        <!-- <div class="form-group">
+                                          <button class="btn btn-primary">Register</button>
+                                      </div> -->
+        <!-- </div> -->
+      </form>
+    </div>
+  </div>
+  

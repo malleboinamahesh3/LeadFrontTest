@@ -1,0 +1,82 @@
+
+
+<div class="modal-header">
+
+  <button type="button" aria-label="Close" class="close"  (click)="closemd()" >
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="WhoCanDoForm" (ngSubmit)="onSubmit()">
+
+<div class="modal-body">
+
+
+      <div class="container">
+
+          <div class="row mb-4">
+
+              <div class="col-md-8 custom-modal-sm">
+
+                  <div class="row border-bottom mb-4">
+
+                      <div class="col-12">
+                          <h2>Who can (rest of the message)</h2>
+                      </div>
+
+                  </div><!--row-end-->
+                  
+                  <div class="row px-3 border-bottom pb-1">
+                  <div>
+                  <p class="QM14 mb-0">Select users</p>
+                  </div>
+                  </div><!--row-end-->
+                  
+                  <div class="row">               
+                  <div class="col o-flow-auto pr-0">
+                    <ul class="assign-ul">
+                      <li *ngFor="let Emp of EmployeeData | filterBy: userFilter ;trackBy: trackByFn">
+                        <div class="form-check mt-2">
+                          <input class="form-check-input radio" type="checkbox" (change)="GetManagerAndExecutiveId(Emp)" name="exampleRadios"
+                            id="exampleRadios1" value="{{Emp.ManagerId}}">
+                          <label class="form-check-label" for="exampleRadios1">
+                            {{Emp.ManagerName}}
+                          </label>
+                        </div>
+                        <ul>
+                          <li class="form-check mt-2" *ngFor="let Exe of Emp.ExeCutivdetailsInfo ;trackBy: trackByFn">
+                            <input class="form-check-input" (change)="GetManagerAndExecutiveId(Exe)" type="checkbox" name="exampleRadios"
+                              id="exampleRadios2" value="{{Exe.ExecutiveId}}">
+                            <label class="form-check-label" for="exampleRadios2">
+                              {{Exe.ExecutiveName}}
+                            </label>
+                          </li>
+            
+                        </ul>
+                      </li>
+                      <!-- <li *ngIf="(EmployeeData | filterBy: userFilter).length === 0">
+                    No matching elements
+                  </li> -->
+                    </ul>
+            
+                  </div>
+                  </div><!--row-end-->
+
+                  <div class="row mt-5">
+
+                      <div class="col-12 text-sm-right">
+
+                          <button type="button" class="btn btn-white my-0 mr-2 px-4">Cancel</button>
+                          <button type="button" (click)="SaveData()" class="btn btn-blue my-0 px-4">Save</button>
+
+                      </div>
+
+                  </div>
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+</form>

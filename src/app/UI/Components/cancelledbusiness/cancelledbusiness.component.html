@@ -1,0 +1,388 @@
+<!-- ============================================================ modal CancelledBusinessDeal start =============================================================== -->
+<div class="modal-header">
+
+  <button type="button" class="close" (click)="CloseCancelModel()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+
+  <div class="container">
+
+    <div class="row mb-4">
+
+      <div class="col border-bottom">
+        <h2>Cancelled business deal</h2>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="container">
+    <form [formGroup]="CancelForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+
+        <div class="col-xl-3 col-lg-3 col-12 bg-gray border">
+          <app-freshbusiness (valueChange)='displayCounter($event)' [funneldata]="popupdataofFunnel"
+            (refreshfunnel)="RefreshFunnelAfterLeadModify($event)"></app-freshbusiness>
+
+        </div>
+        <!-- ========================================================================== column-1-end =================================================================== -->
+
+        <div class="col-xl-9 col-lg-9 col-12 border pt-2">
+
+          <nav>
+
+            <div class="nav nav-tabs modal-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="cancelled-deal-details-tab" data-toggle="tab"
+                href="#cancelled-deal-details" role="tab" aria-controls="cancelled-deal-details"
+                aria-selected="true">Deal cancelled</a>
+              <a class="nav-item nav-link" id="cancelled-history-details-tab" data-toggle="tab"
+                href="#cancelled-history-details" role="tab" aria-controls="cancelled-history-details"
+                aria-selected="false">History</a>
+            </div>
+
+          </nav>
+
+          <div class="tab-content" id="nav-tabContent">
+
+            <div class="tab-pane fade show active" id="cancelled-deal-details" role="tabpanel"
+              aria-labelledby="cancelled-deal-details-tab">
+
+              <div class="overflow-y-auto height-350 mt-4">
+
+                <div class="row px-4">
+
+                  <h3>Deal details</h3>
+
+                </div>
+
+                <div class="row px-4">
+
+                  <!-- <div class="mr-3"><p class="RL13 mb-0">Actual deal value</p><p class="RL15 mb-0">₹ 22,00,000</p></div> -->
+                  <div class="mr-3">
+                    <p class="RL13 mb-0">Actual deal value</p>
+                    <p class="RL15 mb-0"> {{CancelForm.controls.dealvalue.value | mycurrency}}</p>
+                  </div>
+                  <div>
+                    <p class="RL13 mb-0">Final deal value</p>
+                    <p class="RL15 mb-0">{{CancelForm.controls.finaldealvalue.value | mycurrency}}</p>
+                  </div>
+
+                </div>
+
+                <div class="row px-4 pt-3">
+
+                  <h3>Payments received</h3>&nbsp;<span class="QR14">( Total received: {{ CustomersPaymentssum | mycurrency}} ) </span>
+
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="col-12 px-0">
+
+                    <table class="table table-responsive min-width200" formArrayName="PaymentsJSON">
+                      <thead>
+                        <tr>
+                          <th class="RR15 text-dark">Date</th>
+                          <th class="RR15 text-dark">{{symbol}} Amount received</th>
+                          <th class="RR15 text-dark">Payment mode</th>
+                          <th class="RR15 text-dark">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let i of PaymentDetails">
+                          <td class="RL15">{{ i.receiptdate }}</td>
+                          <td class="RL15">{{ i.AmountReceived | mycurrency}}</td>
+                          <td class="RL15">{{i.modeofpayment}}</td>
+                          <td class="RL15">#{{i.chequenumber}}</td>
+                          <!-- <td class="RL15"><a href="#">Edit</a></td> -->
+                        </tr>
+
+
+                        <thead>
+
+                          <th class="px-0 pt-4 pb-0">
+                            <h3>Refund details to lead</h3>
+                          </th>
+
+                        </thead>                   
+
+                        <tr *ngFor="let m of paymentarray;let n=index">
+                          <td hidden>
+                              <span class="RL15">{{m.id}}</span>
+                            </td>
+                        <td *ngIf="paymenthide">
+                          <span class="RL15">{{m.receiptdate | mydateformat}}</span>
+                        </td>
+                        <td *ngIf="paymenthide">
+                          <span class="RL15">{{m.AmountReceived | mycurrency}}</span>
+                        </td>
+                        <td *ngIf="paymenthide">
+                          <span class="RL15">{{m.modeofpayment}}</span>
+                        </td>
+                        <td *ngIf="paymenthide">
+                          <span class="RL15">{{m.chequenumber}}</span>
+                        </td>
+                        <td *ngIf="paymenthide">
+                          <div class="input-group-prepend">
+                            <div (click)="removepayment(m)" style="cursor:pointer;">
+                              <img width="16px" height="16px" alt="correct" src="assets/images/delete.svg" />
+                            </div>
+                          </div>
+
+                        </td>
+
+                      </tr>
+
+                      <tr *ngFor="let unit of CancelForm.controls.PaymentsJSON.controls; let i=index;trackBy: trackByFn"
+                        [formGroupName]="i">
+
+                        <td *ngIf="paymentshow">
+
+
+                          <input type="text" class="form-control" [minDate]="minDate" readonly [maxDate]="maxDate"
+                            #dp="bsDatepicker" [bsConfig]="dpConfig" formControlName="receiptdate" bsDatepicker>
+                        </td>
+
+                        <td *ngIf="paymentshow">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text prepend-cst" id="basic-addon1"> {{symbol}} </span>
+                            </div>
+                            <input appMycurrencyFormatter type="text" class="form-control form-control-cst" maxlength="10" (keypress)="numberOnly($event)"
+                              formControlName="AmountReceived" (blur)="onBlurMethod()" maxlength="10" placeholder="">
+                          </div>
+                        </td>
+                        <td *ngIf="paymentshow">
+                          <select class="form-control" placeholder="Payment mode" formControlName="modeofpayment">
+                            <option value="" ng-selected="selected">Payment mode</option>
+                            <option *ngFor="let modeofpayment of paymentmodes ;trackBy: trackByFn"
+                              [value]="modeofpayment.name">
+                              {{modeofpayment.name}}</option>
+                          </select>
+                        </td>
+                        <td *ngIf="paymentshow">
+                          <input class="form-control" type="text" formControlName="chequenumber"
+                            (keypress)="SpecialcharactersOnly($event)" maxlength="20">
+                        </td>
+                        <td>
+                            <button type="button" class="btn button-sm" (click)="addUnit()"
+                              *ngIf="paymentshow"><img src="assets/images/add-more.svg" width="16px" height="16px" alt="remove"
+                              class="mr-2 mb-1" />
+                               </button>
+                          </td>
+                      </tr>
+
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                </div>
+
+                <!-- ========================================================================== table1-end =============================================================== -->
+                <div class="row px-4 pt-3">
+
+                  <h3 class="mb-0">Lead bank details</h3>
+
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="col-12 px-0">
+
+                    <table class="table table-responsive min-width200">
+
+                      <thead>
+
+                        <tr>
+
+                          <th class="RR15 text-dark">Bank account type</th>
+                          <th class="RR15 text-dark">Bank account name</th>
+                          <th class="RR15 text-dark">Bank account number</th>
+                          <th class="RR15 text-dark">Bank IFSC code</th>
+
+                        </tr>
+
+                      </thead>
+
+                      <tbody>
+
+                        <!-- <tr>
+    
+      <td class="RL15">Savings account</td>
+      <td class="RL15">John Doe</td>
+      <td class="RL15">0009800123456</td>
+      <td class="RL15">IBN0000137</td>
+      <td class="RL15"><a href="#">Edit</a></td>
+      
+    </tr> -->
+                        <tr *ngFor="let i of bankdetails">
+
+                          <td class="RL15">{{ i.BankAccounttype }}</td>
+                          <td class="RL15">{{ i.bankaccountname }}</td>
+                          <td class="RL15">{{ i.bankaccountno }}</td>
+                          <td class="RL15">{{ i.bankIFSCCode }}</td>
+                          <!-- <td class="RL15"><a href="#">Edit</a></td> -->
+
+                        </tr>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
+                <!-- ======================================================================== table2-end ================================================== -->
+               <div *ngIf="ChanelpartnerdetailsHide">               
+                  <div class="row px-4 pt-3" >
+
+                  <h3 class="mb-0">Channel partner ({{channelname}}) remuneration (Total paid: {{channelpartnertotalsum | mycurrency}})</h3>
+                  <p class="RL13 mb-0">Account no.: {{bankaccountno}}, Account name: {{bankaccountname}}, Account
+                    type: {{bankaccounttype}},
+                    IFSC
+                    code: {{bankifsccode}}</p>
+
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="col-12 px-0">
+
+                    <table class="table table-responsive min-width200">
+
+                      <thead>
+
+                        <tr>
+
+                          <th class="RR15 text-dark">Date</th>
+                          <th class="RR15 text-dark"> {{symbol}} Amount received</th>
+                          <th class="RR15 text-dark">Payment mode</th>
+                          <th class="RR15 text-dark">Details</th>
+
+                        </tr>
+
+                      </thead>
+
+                      <tbody>
+
+                        <!-- <tr>
+
+                          <td class="RL15">08/03/2018</td>
+                          <td class="RL15">₹10,000</td>
+                          <td class="RL15">Cheque</td>
+                          <td class="RL15">#6789012</td>
+                          <td class="RL15"><a href="#">Edit</a></td>
+
+                        </tr> -->
+                        <tr *ngFor="let i of cpPaymentDetails">
+
+                            <td class="RL15">{{i.paiddate}}</td>
+                            <td class="RL15"> {{ i.Amountpaid | mycurrency}}</td>
+                            <td class="RL15">{{i.modeofpayment}}</td>
+                            <td class="RL15">#{{i.chequenumber}}</td>
+                            <!-- <td class="RL15"><a href="#">Edit</a></td> -->
+  
+                          </tr>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="row px-4 pt-4">
+
+                <h3 class="mb-0">Reason for cancellation</h3>
+    
+              </div>
+    
+              <div class="row px-4">
+    
+                <div>
+    
+                  <p class="RL13 mb-0">{{dataofreasontocancel}}</p>
+                  
+    
+                </div>
+    
+              </div>
+    
+    
+              <div class="row px-4 pt-4 pb-3">
+    
+                <div class="col px-0">
+    
+                  <button type="button" (click)="ClearDetails()" class="btn btn-white my-0 mr-2 px-4">Clear</button>
+    
+                  <button type="submit" class="btn btn-blue my-0 px-4" (click)="SaveCanceledData">Save</button>
+    
+                </div>
+    
+              </div>
+
+              </div>
+
+            </div>
+            <!-- ========================================================= tabpanel-1-end =============================================================== -->
+
+            <div class="tab-pane fade" id="cancelled-history-details" role="tabpanel"
+              aria-labelledby="cancelled-history-details-tab">
+
+              <app-followuphistory></app-followuphistory>
+
+            </div>
+
+          </div>
+
+          <!-- <div class="row px-4 pt-4">
+
+            <h3 class="mb-0">Reason for cancellation</h3>
+
+          </div>
+
+          <div class="row px-4">
+
+            <div>
+
+              <p class="RL13 mb-0">{{dataofreasontocancel}}</p>
+              
+
+            </div>
+
+          </div>
+
+
+          <div class="row px-4 pt-4 pb-3">
+
+            <div class="col px-0">
+
+              <button type="button" (click)="ClearDetails()" class="btn btn-white my-0 mr-2 px-4">Clear</button>
+
+              <button type="submit" class="btn btn-blue my-0 px-4" (click)="SaveCanceledData">Save</button>
+
+            </div>
+
+          </div> -->
+
+        </div>
+
+
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<!-- ============================================================ modal CancelledBusinessDeal end =============================================================== -->

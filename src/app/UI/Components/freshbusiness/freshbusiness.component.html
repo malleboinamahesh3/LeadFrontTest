@@ -1,0 +1,1050 @@
+
+<form [formGroup]="FreshBusinessDealForm">
+
+  <div class="row pl-4 pr-2 pt-3">
+    <div class="col px-0">
+      <h3>Lead details</h3>
+    </div>
+    <div class="col px-0 text-right">
+      <div *ngIf="Editbuttonshow">
+        <button type="button" class="btn button-sm m-0" (click)="EditdetailsHideandShow('edit')">
+          <img width="16px" height="16px" class="mr-2" src="assets/images/more-active.svg" />Add /
+          edit</button>
+      </div>
+      <div *ngIf="EditCancelbuttonshow">
+        <button type="button" class="btn button-sm m-0" (click)="EditdetailsHideandShow('cancel')">
+          <img width="16px" height="16px" class="mr-2" src="assets/images/more-active.svg" />Cancel edit</button>
+      </div>
+    </div>
+  </div>
+
+  <div id='content' class="tab-content">
+    <div id="individual-tab" *ngIf="Edithide">
+
+      <div class="row pl-3 pr-2 mb-2">
+        <span class="badge badge-dark RR13">{{addresstype}}</span>
+      </div>
+
+      <!-- <div class="row px-4 pt-1 pb-3 border-bottom">
+        </div> -->
+
+
+      <div class="row pl-4 pr-2">
+        <div class="col px-0">
+          <p class="RL13 query-cst">Full name<br>
+            <span class="RL15">{{ titlename +" "+ FreshBusinessDealForm.controls.Customername.value}}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="row pl-4 pr-2">
+        <div class="col px-0">
+          <p class="RL13">Country <br>
+            <span class="RL15">{{countryname}}</span></p>
+        </div>
+      </div>
+
+      <div class="row pl-4 pr-2">
+        <div class="col px-0">
+          <p class="RL13">Phone No.<br>
+            <span class="RL15">{{FreshBusinessDealForm.controls.contactno.value}}</span></p>
+        </div>
+      </div>
+      <div *ngIf="AltmobilenoShow">
+        <div class="row pl-4 pr-2">
+          <div class="col px-0">
+            <p class="RL13"> Country<br>
+              <span class="RL15">{{alternatecountry}}</span></p>
+          </div>
+        </div>
+        <div class="row pl-4 pr-2">
+          <div class="col px-0">
+            <p class="RL13">Alternate Phone No.<br>
+              <span class="RL15">{{alternatecontactno}}</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row pl-4 pr-2">
+        <div class="col px-0">
+          <p class="RL13 query-cst">Email<br>
+            <span class="RL15">{{FreshBusinessDealForm.controls.email.value}}</span></p>
+        </div>
+      </div>
+      <div class="row pl-4 pr-2">
+        <div class="col px-0">
+          <p class="RL13">Deal Name<br>
+            <span class="RL15">{{dealname}}</span></p>
+        </div>
+      </div>
+
+      <div class="row pl-4 pr-2">
+        <div class="col px-0">
+          <p class="RL13">Deal value<br>
+            <span class="RL15">{{FreshBusinessDealForm.controls.dealvalue.value | mycurrency}}</span></p>
+        </div>
+      </div>
+
+      <div class="row pl-4 pr-2">
+        <div class="col px-0">
+          <p class="RL13 query-cst">Query<br>
+            <span class="RL15">{{FreshBusinessDealForm.controls.query.value}}</span></p>
+        </div>
+      </div>
+
+      <div class="row pl-4 pr-2">
+        <div class="col px-0">
+          <p class="RL13">Source Name<br>
+            <span class="RL15">{{FreshBusinessDealForm.controls.newsourcesubsource.value}}</span></p>
+        </div>
+      </div>
+
+      <div class="row pl-4 pr-2" *ngIf="assignedtoshow">
+        <div class="col px-0">
+          <p class="RL13">Assignedto<br>
+            <span class="RL15">{{FreshBusinessDealForm.controls.assignedto.value}}</span></p>
+        </div>
+      </div>
+
+
+      <div id="Individualdetails" *ngIf="Individualshow">
+        <div class="row pl-4 pr-2">
+          <div class="col px-0">
+            <p class="RL13">Address<br>
+              <span class="RL15">{{FreshBusinessDealForm.controls.Address.value}}</span></p>
+          </div>
+        </div>
+
+        <div class="row pl-4 pr-2">
+          <div class="col px-0">
+            <p class="RL13">Area<br>
+              <span class="RL15">{{FreshBusinessDealForm.controls.Area.value}}</span></p>
+          </div>
+        </div>
+
+        <div class="row pl-4 pr-2">
+          <div class="col px-0">
+            <p class="RL13">City<br>
+              <span class="RL15">{{FreshBusinessDealForm.controls.city.value}}</span></p>
+          </div>
+        </div>
+
+        <div class="row pl-4 pr-2">
+          <div class="col px-0">
+            <p class="RL13">Pincode<br>
+              <span class="RL15">{{FreshBusinessDealForm.controls.pincode.value}}</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="Companydetails" *ngIf="Individualhide">
+        <div *ngIf="CompanyDetailsShowOnly">
+          <div class="row pl-4 pr-2">
+            <div class="col px-0">
+              <p class="RL13">Company Name<br>
+                <span class="RL15">{{FreshBusinessDealForm.controls.Companyname.value}}</span></p>
+            </div>
+          </div>
+
+          <div class="row pl-4 pr-2">
+            <div class="col px-0">
+              <p class="RL13">Address<br>
+                <span class="RL15">{{FreshBusinessDealForm.controls.Address.value}}</span></p>
+            </div>
+          </div>
+
+          <div class="row pl-4 pr-2">
+            <div class="col px-0">
+              <p class="RL13">Area<br>
+                <span class="RL15">{{FreshBusinessDealForm.controls.Area.value}}</span></p>
+            </div>
+          </div>
+
+          <div class="row pl-4 pr-2">
+            <div class="col px-0">
+              <p class="RL13">City<br>
+                <span class="RL15">{{FreshBusinessDealForm.controls.city.value}}</span></p>
+            </div>
+          </div>
+
+          <div class="row pl-4 pr-2">
+            <div class="col px-0">
+              <p class="RL13">Pincode<br>
+                <span class="RL15">{{FreshBusinessDealForm.controls.pincode.value}}</span></p>
+
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="otherdetailsShow">
+          <div class="row pl-4 pr-2">
+            <div class="col px-0">
+              Other Contacts Details For This Company
+              <br>
+              <br>
+            </div>
+          </div>
+
+          <div *ngFor="let i of details;let j=index">
+            <br>
+            <div class="row pl-4 pr-2">
+              <div class="col px-0">
+                <p class="RL13">Full name<br>
+                  <span class="RL15">{{ i.otherfullname }}</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="row pl-4 pr-2">
+              <div class="col px-0">
+                <p class="RL13">Email<br>
+                  <span class="RL15">{{ i.otheremail }}</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="row pl-4 pr-2">
+              <div class="col px-0">
+                <p class="RL13">Mobile No<br>
+                  <span class="RL15">{{i.othermobileno}}</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="row pl-4 pr-2">
+              <div class="col px-0">
+                <p class="RL13">Designation<br>
+                  <span class="RL15">{{i.otherdesignation}}</span>
+                </p>
+              </div>
+            </div>
+            <div class="row px-4 pt-1 pb-3 border-bottom"></div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+
+
+    </div>
+
+    <div id="company-tab" *ngIf="EditShow">
+
+
+      <div class="row px-4 my-2">
+
+        <div class="col-12 px-0">
+
+          <!-- <p class="RL13 mb-0">Assigned date</p> -->
+
+        </div>
+
+
+
+
+        <div class="row mb-4">
+          <div class="col">
+            <ul class="nav" id="lead-data-tab">
+              <li class="active">
+                <!-- href="#individual-tab" -->
+                <a>
+                  <div class="form-check form-check-inline" (click)="CompanydetailsHideandShow('individual')">
+                    <input class="form-check-input" formControlName="Addresstype" type="radio" name="Addresstype"
+                      id="indi1" value='Individual'>
+                    <label class="form-check-label" for="indi1">Individual</label>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <!-- href="#company-tab" -->
+                <a>
+                  <div class="form-check form-check-inline" (click)="CompanydetailsHideandShow('Company')" id="">
+                    <input class="form-check-input" formControlName="Addresstype" type="radio" name="Addresstype"
+                      id="comp1" value='Company'>
+                    <label class="form-check-label" for="comp1">Company</label>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+
+        <div class="row px-4">
+
+          <!-- <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+              <input type="text" formControlName="leadeditdate" class="form-control m-0" [bsConfig]="dpConfig" #dp="bsDatepicker" placement="bottom left" placeholder="DD MMM YYYY"
+                bsDatepicker [ngClass]="{ 'is-invalid':FreshBusinessDealForm.controls.leadeditdate.errors }"  readonly>
+              
+            </div>
+            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+              <div *ngIf="FreshBusinessDealForm.controls.leadeditdate.errors else path" class="invalid-feedback"
+                class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                <div *ngIf="FreshBusinessDealForm.controls.leadeditdate.errors else root"><span class="error-msg">*</span>
+                </div>
+                <ng-template #root>
+                  <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                </ng-template>          
+              </div>
+              <ng-template #path>
+                <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+              </ng-template>
+            </div> -->
+
+
+
+          <!-- <div  class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input type="text"
+                formControlName="leadeditdate"
+                class="form-control m-0"
+                [minDate]="minDate"
+                [maxDate]="maxDate" [bsConfig]="dpConfig"
+                #dp="bsDatepicker"  placement="bottom left" placeholder="DD MMM YYYY" 
+                bsDatepicker  [ngClass]="{ 'is-invalid':FreshBusinessDealForm.controls.leadeditdate.errors }" readonly>
+              
+            </div> -->
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+
+            <select class="form-control" placeholder="Title" formControlName="title"
+              [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.title.errors }">
+              <option value="" ng-selected="selected">Title</option>
+              <option *ngFor="let title of titles ;trackBy: trackByFn" [value]="title.name"> {{title.name}}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.title.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.title.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+            <input class="form-control" type="text" placeholder="Full name" formControlName="Customername"
+              [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.Customername.errors }">
+          </div>
+
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.Customername.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.Customername.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+            <select class="form-control" placeholder="Country" formControlName="country" (change)="selectdrop($event)"
+              [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.country.errors }">
+              <option value="" ng-selected="selected">Country</option>
+              <option *ngFor="let country  of CountryList;trackBy: trackByFn" [value]="country.name">
+                {{country.name}} - ({{country.code}})</option>
+            </select>
+
+          </div>
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.country.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.country.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend" hidden>
+                <span class="input-group-text" id="basic-addon1">{{text}}</span>
+              </div>
+              <input class="form-control" type="text" formControlName="contactno" (keypress)="numberOnly($event)"
+                maxlength="10" placeholder="Phone"
+                [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.contactno.errors }">
+            </div>
+
+          </div>
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.contactno.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.contactno.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+
+        </div>
+
+
+
+
+
+        <div formArrayName="MobileNosAlt">
+
+          <div class="btnhide" *ngIf="ShowElement">
+
+            <div
+              *ngFor="let unit of FreshBusinessDealForm.controls.MobileNosAlt.controls; let i=index ;trackBy: trackByFn"
+              [formGroupName]="i">
+
+              <div class="row px-4">
+
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+                  <div class="form-group">
+                    <select class="form-control" placeholder="Country" formControlName="countryduplicate"
+                      (change)="select($event)">
+                      <option value="" ng-selected="selected">Country</option>
+                      <option *ngFor="let countryduplicate  of CountryList;trackBy: trackByFn"
+                        [value]="countryduplicate.name">
+                        {{countryduplicate.name}} - ({{countryduplicate.code}})</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+
+
+              <div class="row px-4">
+
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend" hidden>
+                      <span class="input-group-text" id="basic-addon1">{{textdata}}</span>
+                    </div>
+                    <input class="form-control" type="text" formControlName="altmobileno"
+                      (keypress)="numberOnly($event)" maxlength="10" placeholder="Phone">
+                  </div>
+
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div class="input-group-prepend">
+
+                    <div (click)="removeUnit(i)" style="cursor:pointer;">
+                      <img width="10px" height="10px" alt="correct" src="assets/images/close-button.png" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row px-4">
+
+                <div class="col-12 px-0">
+
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="row px-4">
+
+          <div class="col-12 px-0">
+            <button *ngIf="FreshBusinessDealForm.controls.MobileNosAlt.controls.length <1" type="button"
+              class="btn button-sm" (click)="addUnit(i)">
+              <img src="assets/images/add-active.svg" width="16px" height="16px" alt="remove" class="mr-2 mb-1" />Add
+              alternate phone</button>
+          </div>
+        </div>
+
+
+
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+            <input class="form-control" type="email" placeholder="Email" formControlName="email"
+              [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.email.errors }">
+
+          </div>
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.email.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.email.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+            <select class="form-control" placeholder="Select business deal, (or) add new deal" formControlName="dealid"
+              (change)="selectbussiness()" [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.dealid.errors }">
+              <option value="" ng-selected="selected">Select Deal</option>
+              <option *ngFor="let dealid  of dealids;trackBy: trackByFn" [value]="dealid.dealid">
+                {{dealid.dealname}}</option>
+            </select>
+
+          </div>
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.dealid.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.dealid.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-12 px-0">
+
+            <button type="button" class="btn button-sm" data-toggle="modal" data-target="#newdeal"
+              *ngIf="shownewdealbutton"><img class="mr-2" width="16px" height="16px"
+                src="assets/images/select-active.svg">Add Deal
+            </button>
+          </div>
+
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">{{symbol}} </span>
+              </div>
+              <input appMycurrencyFormatter type="text" class="form-control" [readonly]="!childmessage"
+                formControlName="dealvalue" (keypress)="numberOnly($event)" maxlength="10" placeholder="Deal value"
+                [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.dealvalue.errors }">
+            </div>
+          </div>
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.dealvalue.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.dealvalue.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="NOTES:"
+              formControlName="query"
+              [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.query.errors }"></textarea>
+
+          </div>
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.query.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.query.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div>
+
+
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+            <input type="text" formControlName="newsourcesubsource" name="newsourcesubsource" class="form-control"
+              placeholder="Select Source" readonly data-toggle="modal" (focus)="focusFunction(CardData)">
+            <button type="button" class="btn button-sm" data-toggle="modal" data-target="#leadSource"
+              *ngIf="showchangesourcebtn">Change
+              source</button>
+          </div>
+
+        </div>
+
+
+        <div class="row px-4">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+            <!-- <input class="form-control" type="text" placeholder="Assignedto" (click)="AssignedToFocus()" readonly formControlName="assignedto"
+                [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.assignedto.errors }"> -->
+            <input class="form-control" type="text" placeholder="Assigned person name" (click)="AssignedToFocus()" readonly
+              formControlName="assignedto">
+          </div>
+          <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+            <div *ngIf="FreshBusinessDealForm.controls.assignedto.errors else path" class="invalid-feedback"
+              class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+              <div *ngIf="FreshBusinessDealForm.controls.assignedto.errors?.required else root"><span
+                  class="error-msg">*</span></div>
+              <ng-template #root>
+                <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+              </ng-template>
+            </div>
+            <ng-template #path>
+              <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+            </ng-template>
+          </div> -->
+        </div>
+
+        <div class="row px-4">
+
+          <div class="col-12 px-0">
+            <button type="button" class="btn button-sm" (click)="ChangeAssignedtoClick()">Change AssignedTo
+            </button>
+          </div>
+        </div>
+
+        <div class="row px-4" *ngIf="assignedTotreeShow">
+
+          <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+
+            <div class="col o-flow-auto pr-0">
+              <ul class="assign-ul">
+                <li *ngFor="let Emp of EmployeeData | filterBy: userFilter ;trackBy: trackByFn">
+                  <div class="form-check mt-2">
+                    <input class="form-check-input" type="radio" (change)="GetManagerAndExecutiveId(Emp)"
+                      name="exampleRadios" id="{{Emp.ManagerID}}"
+                      [checked]="this.FreshBusinessDealForm.controls.assignto.value === Emp.ManagerID"
+                      value="{{Emp.ManagerId}}">
+                    <label class="form-check-label" for="exampleRadios1">
+                      {{Emp.ManagerName}}
+                    </label>
+                  </div>
+                  <ul>
+                    <li class="form-check mt-2" *ngFor="let Exe of Emp.ExeCutivdetailsInfo ;trackBy: trackByFn">
+                      <input class="form-check-input" (change)="GetManagerAndExecutiveId(Exe)" type="radio"
+                        name="exampleRadios" id="{{Exe.ExecutiveID}}"
+                        [checked]="this.FreshBusinessDealForm.controls.assignto.value === Exe.ExecutiveID"
+                        value="{{Exe.ExecutiveId}}">
+                      <label class="form-check-label" for="exampleRadios2">
+                        {{Exe.ExecutiveName}}
+                      </label>
+                    </li>
+
+                  </ul>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div id='content' class="tab-content">
+
+          <div id="individual-tab" *ngIf="Companyhide">
+
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input class="form-control" formControlName="Address" type="text" placeholder="Address" maxlength="100"
+                  [ngClass]="{ 'is-invalid':FreshBusinessDealForm.controls.Address.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.Address.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.Address.errors?.required else root"><span class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+            </div>
+
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input formControlName="Area" class="form-control" type="text" maxlength="150" placeholder="Area"
+                  [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.Area.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.Area.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.Area.errors?.required else root"><span class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+            </div>
+
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input formControlName="city" class="form-control" type="text" maxlength="30" placeholder="city"
+                  [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.city.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.city.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.city.errors?.required else root"><span class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+            </div>
+
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input formControlName="pincode" class="form-control" type="text" placeholder="Pin"
+                  (keypress)="numberOnly($event)" maxlength="6"
+                  [ngClass]="{ 'is-pincode': FreshBusinessDealForm.controls.pincode.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.pincode.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.pincode.errors?.required else root"><span class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+            </div>
+
+
+            <!-- <div class="row px-4">
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                  <input formControlName="detailsDate" class="form-control" type="date" bsDatepicker
+                    placeholder="Date of birth"
+                    [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.detailsDate.errors }">
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.detailsDate.errors else path"
+                    class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.detailsDate.errors?.required else root"><span
+                        class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div>
+              </div> -->
+
+
+          </div>
+          <div id="company-tab" *ngIf="CompanyShow">
+
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input class="form-control" formControlName="Companyname" type="text" placeholder="Company name"
+                  [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.Companyname.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.Companyname.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.Companyname.errors?.required else root"><span
+                        class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+
+            </div>
+
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input formControlName="Address" class="form-control" type="text" placeholder="Address" maxlength="100"
+                  [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.Address.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.Address.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.Address.errors?.required else root"><span class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+            </div>
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input formControlName="Area" class="form-control" type="text" placeholder="Area" maxlength="150"
+                  [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.Area.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.Area.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.Area.errors?.required else root"><span class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+            </div>
+
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input formControlName="city" class="form-control" type="text" placeholder="city" maxlength="30"
+                  [ngClass]="{ 'is-invalid':FreshBusinessDealForm.controls.city.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.city.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.city.errors?.required else root"><span class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+            </div>
+
+            <div class="row px-4">
+              <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                <input formControlName="pincode" class="form-control" type="text" placeholder="Pin"
+                  (keypress)="numberOnly($event)" minlength="6" maxlength="6"
+                  [ngClass]="{ 'is-invalid': FreshBusinessDealForm.controls.pincode.errors }">
+              </div>
+              <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div *ngIf="FreshBusinessDealForm.controls.pincode.errors else path" class="invalid-feedback"
+                    class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                    <div *ngIf="FreshBusinessDealForm.controls.pincode.errors?.required else root"><span class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                    </ng-template>
+                  </div>
+                  <ng-template #path>
+                    <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                  </ng-template>
+                </div> -->
+
+            </div>
+
+            <div formArrayName="empdata">
+
+              <div class="row px-4">
+                <div class="col mb-4">
+                  <h5 class="pb-1 border-bottom">Add other contacts for this company</h5>
+                </div>
+              </div>
+
+              <div *ngFor="let unit of FreshBusinessDealForm.controls.empdata.controls; let i=index;trackBy: trackByFn"
+                [formGroupName]="i">
+
+                <div class="row px-4">
+
+                  <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                    <input formControlName="fullname" class="form-control" type="text" placeholder="Fullname"
+                      (keypress)="CharactersOnly($event)">
+                  </div>
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                    <input formControlName="email" class="form-control" type="text" placeholder="Email">
+                  </div>
+
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                    <input formControlName="mobileno" (keypress)="numberOnly($event)" maxlength="10"
+                      class="form-control" type="text" placeholder="Mobile">
+                  </div>
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pr-0 px-0">
+                    <input formControlName="Desgination" class="form-control" type="text"
+                      (keypress)="CharactersOnly($event)" placeholder="Desgination">
+                  </div>
+
+                  <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                    <div class="input-group-prepend">
+                      <div (click)="detailsremoveUnit(i)" style="cursor:pointer;">
+                        <img width="10px" height="10px" alt="correct" src="assets/images/close-button.png" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="row px-4">
+
+              <div class="col-12 px-0">
+
+                <button type="button" class="btn button-sm" (click)="detailsaddUnit()"
+                  *ngIf="FreshBusinessDealForm.controls.empdata.controls.length <=3">
+                  <img src="assets/images/add-active.svg" width="16px" height="16px" alt="remove"
+                    class="mr-2 mb-1" />Add
+                  contact</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="row px-4 my-2" *ngIf="UpdateButtonShow">
+
+    <div class="col-12 px-0">
+
+      <button type="submit" (click)="SaveLeadEditdetails()" class="btn btn-blue my-0 px-4">Update lead details</button>
+
+    </div>
+
+  </div>
+
+</form>
+
+
+<!-- </div> -->
+
+
+
+
+<!-- </form> -->
+<!-- ========================================================================== column-1-end =================================================================== -->
+<!-- <div class="col-xl-5 col-lg-6 col-12 border">
+
+  <app-followup (valueChange)='displayCounter($event)'></app-followup>
+
+</div> -->
+<!-- ============================================================================ column-2-end ================================================================= -->
+<!-- <div class="col-xl-3 col-lg-3 col-12 border bg-gray">
+
+  <app-followuphistory></app-followuphistory>
+
+</div> -->
+
+<!-- 
+</div>
+
+</div>
+
+</div> -->
+
+<!-- ===================================================================== modal FreshBusinessDeal end ============================================================ -->
+
+<!------Lead Source Modal------->
+<div class="modal fade pl-0" id="leadSource" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-source (OutputToparent)="getsourcedata($event)"></app-source>
+    </div>
+
+  </div>
+</div>
+<!------New business deal Modal------->
+<div class="modal fade pl-0" id="newdeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-businessdeal (DealListUpdate)="UpdateDeals()"></app-businessdeal>
+    </div>
+
+  </div>
+</div>

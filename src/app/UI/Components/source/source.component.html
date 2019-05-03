@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <button type="button" class="close"  (click)="close()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+
+  <div class="container">
+
+    <form #newchanelpartner="ngForm" autocomplete="off" (ngSubmit)="Addnewchanelpartner(newchanelpartner)">
+
+      <div class="row mb-4">
+        <div class="col border-bottom">
+          <h2>Lead source</h2>
+          <h6>Select a predefined source or define a custom source</h6>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12 pr-0">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+            <a class="nav-link active" id="v-pills-channel-partner" data-toggle="pill" href="#v-pills-home" role="tab"
+              aria-controls="v-pills-home" aria-selected="true">Channel partner referral</a>
+
+            <a *ngFor="let SOASU of SourceAndSubSource;let SOASUIndex=index" (click)="selected(SOASU,SOASUIndex)" class="nav-link" id="v-pills-newspaper-tab"
+              data-toggle="pill" href="#{{SOASU.name}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{SOASU.source}}</a>
+
+          </div>
+        </div>
+
+        <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-12 tab-bg pt-4">
+          <div class="tab-content" id="v-pills-tabContent">
+
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              <!------ Hear Loading Chanel-partner-component----->
+              <app-chanelpartner (OutputToparentfromchanelpartner)="receiveMsgfromchanelpartner($event)"></app-chanelpartner>
+
+            </div>
+
+            <div *ngFor="let SOASU of SourceAndSubSourceNew;let SOASU=index" class="tab-pane fade" id="{{SOASU.name}}"
+              role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+              <div class="row mb-4">
+                <div class="col-12 col-sm-9 col-md-9 col-lg-10 col-xl-10 pr-xl-0 pr-lg-0 pr-md-0 pr-sm-0">
+                  <input class="form-control" [value]="ClearText" (keypress)="CharactersOnly($event)" name="addsubsource" [(ngModel)]="addsubsource" type="text"
+                    placeholder="Add a new {{SOASU.source}} name"></div>
+                <div class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                  <button type="button" (click)="Addsubsourcesave({'name':addsubsource})" class="btn btn-white px-4">Add</button>
+                </div>
+              </div>
+
+              <div class="row mb-4" *ngFor="let Sub of SOASU.subsource;let  j=index">
+                <div class="col pb-1 border-bottom">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" [checked]="Sub.status" (change)="statusChange(SOASU,j)" name="{{Sub.id}}"
+                      id="{{Sub.id}}" value="{{Sub.status}}">
+                    <label class="form-check-label" for="{{Sub.id}}">{{Sub.subsourcename}}</label>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- <div class="row mt-4">
+        <div class="col pr-0 text-right">
+           <button type="button" class="btn btn-white" >Cancel</button>
+          <button type="submit" class="btn btn-blue ml-3">Save</button>
+        </div>
+    </div>  -->
+
+      </div>
+    </form>
+  </div>

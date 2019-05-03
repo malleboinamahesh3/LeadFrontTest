@@ -1,0 +1,458 @@
+<!-- <form  #newchanelpartner="ngForm"  autocomplete="off" (ngSubmit)="Addnewchanelpartner(newchanelpartner)">href="#cp-referral-new" href="#cp-referral"-->
+<div class="container">
+
+  <div class="row">
+    <div class="col-12">
+      <h6 class="pb-3 nav nav-tabs">
+        <a data-toggle="tab" (click)="ChannelPartnerHideandShowList('Channel')" role="tab" aria-controls="fresh" aria-selected="true"
+          style="padding: 14px;color:#111;">Channel Tab</a>
+        <a data-toggle="tab" (click)="ChannelPartnerHideandShowList('Addnew')" role="tab" aria-controls="fresh" aria-selected="true">
+          <button type="button" class="btn button-sm ml-3"><img src="assets/images/add-active.svg" width="16px" height="16px"
+              alt="remove" class="mr-2 mb-1" />Add new
+          </button>
+        </a>
+
+      </h6>
+    </div>
+
+  </div>
+
+  <div class="col-12 pt-4">
+    <div class="tab-content">
+
+      <div  *ngIf="ChannelListhide" id="cp-referral">
+        <!-- <div *ngFor="let SOASU of SourceAndSubSource.CP;let SOASU=index"> 
+                                   <div *ngIf="(SOASU.id == 1)">  -->
+        <div class="row mb-4" *ngFor="let Sub of Chanelpartnerjson;let j=index;trackBy: trackByFn">
+          <div class="col pb-1 border-bottom">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [checked]="Sub.status" (change)="statusChangedforreferral(j)"
+                name="{{Sub.id}}" id="{{Sub.id}}" value="{{Sub.status}}">
+              <label class="form-check-label" for="{{Sub.id}}">{{Sub.referalname}}</label>
+            </div>
+          </div>
+        </div>
+        <!-- </div>
+                              </div> -->
+
+
+      </div>
+
+
+      <div  *ngIf="ChannelListShow" id="cp-referral-new" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+        <div class="row">
+          <div class="col">
+            <h5>Add a new channel partner</h5>
+          </div>
+        </div>
+
+
+        <!-- <form [formGroup]="ChanelpartnerForm">
+           <div class="form-group">
+          <div class="row">
+          <div class="col-10 col-sm-10 pr-0">
+          <input class="form-control" type="text" placeholder="Channel partner full Name"  formControlName="channelpartnername" name="channelpartnername" >
+          </div>
+          <div class="col-1 d-flex flex-wrap align-items-center">
+          <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+          </div>
+          </div>
+          </div>
+          
+          <div class="row">
+          <div class="col-4 col-sm-4 pr-0">
+           
+          <div class="form-group">
+          <select class="form-control"   name="country" fornControlName="country" >
+          <option hidden>country</option>
+          <option>India</option>
+          <option>Chaina</option>
+          <option>Japan</option>
+          <option>Italy</option>
+          </select>
+           </div>
+          </div>
+          <div class="col-6 col-sm-6 pr-0">
+            <input class="form-control" type="text" placeholder="Phone" formControlName="phone" >
+          </div>
+          <div class="col-1 d-flex flex-wrap align-items-center">
+           <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+          </div>
+          </div>
+          
+          
+          
+          <div class="row">
+          <div class="col-10 col-sm-10 pr-0">
+           <input class="form-control" type="text" placeholder="Email"  name="email" formControlName="email" >
+           
+          </div>
+          <div class="col-1 d-flex flex-wrap align-items-center">
+          <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+          </div>
+          </div> 
+          
+          
+          
+          <div class="row">
+          <div class="col-10 col-sm-10 pr-0">
+            <input class="form-control" type="text" placeholder="Bank account type" name="banckacctype" formControlName="bankacctype" >
+          
+          </div>
+          <div class="col-1 d-flex flex-wrap align-items-center">
+             <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+          </div>
+          </div>
+          
+          
+          
+          <div class="row">
+          <div class="col-10 col-sm-10 pr-0">
+             <input class="form-control" type="text" placeholder="Bank account name" name="bankname" formControlName="bankname" >
+          
+          </div>
+          <div class="col-1 d-flex flex-wrap align-items-center">
+           <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+          </div>
+          </div>
+          
+          
+          
+          <div class="row">
+          <div class="col-10 col-sm-10 pr-0">
+          <input class="form-control" type="text" placeholder="Bank account number" name="bankaccnumber" formControlName="bankaccnumber" >
+          
+          </div>
+          <div class="col-1 d-flex flex-wrap align-items-center">
+          <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+          </div>
+          </div>
+          
+          
+          
+          <div class="row">
+          <div class="col-10 col-sm-10 pr-0">
+          <input class="form-control" type="text" placeholder="Bank IFSC code" name="ifsccode" formControlName="bankifsccode" >
+          
+          </div>
+          <div class="col-1 d-flex flex-wrap align-items-center">
+          <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+          </div>
+          </div>
+          
+          
+          
+          <div class="row">
+          <div class="col-10 col-sm-10 pr-0">
+          <a class="pb-3 nav nav-tabs float-right">
+           <button data-toggle="tab" href="#cp-referral" role="tab" type="button" class="btn btn-white ">Discard and go back</button>
+          </a>
+          <button data-toggle="tab" href="#cp-referral" role="tab" type="submit" (click)="SaveChanelPaerner()" class="btn btn-white ">Save</button>
+          </div>
+          </div>
+          </form> -->
+
+
+        <form [formGroup]="userForm" autocomplete="off">
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-10 col-sm-10 pr-0">
+                <input class="form-control" type="text" id="chnptnrfullname" maxlength="100" placeholder="Channel partner fullname" name="referalname"
+                  formControlName="referalname" [ngClass]="{ 'is-invalid': userForm.controls.referalname.errors }">
+              </div>
+
+              <!-- <div class="col-1 d-flex flex-wrap align-items-center">
+                                     
+                                   <span *ngIf="userForm.controls.referalname.valid;else errMsg">
+                                        <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+                                    </span>
+                                    <ng-template #errMsg>
+                                        <img src="assets/images/exclamation.svg" width="16px" height="16px" alt="correct"> 
+                                    </ng-template>
+                               </div> -->
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                <div *ngIf="userForm.controls.referalname.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                  <div *ngIf="userForm.controls.referalname.errors?.required else root"><span class="error-msg">*</span></div>
+                  <ng-template #root>
+                    <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                  </ng-template>
+                  <!-- <img *ngIf="f.Customername.errors.minlength || f.Customername.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+                </div>
+                <ng-template #path>
+                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                </ng-template>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- <div class="form-group">  -->
+
+          <div class="row">
+            <div class="col-4 col-sm-4 pr-0">
+
+
+
+              <div class="form-group">
+                <select class="form-control" placeholder="Country" formControlName="countrycode" (change)="selectdrop($event)"
+                  [ngClass]="{ 'is-invalid': userForm.controls.countrycode.errors }">
+                  <option value="" ng-selected="selected">Country</option>
+                  <option *ngFor="let countrycode  of CountryList;trackBy: trackByFn" [value]="countrycode.code"> {{countrycode.name}} - ({{countrycode.code}})</option>
+                </select>
+              </div>
+
+
+
+
+
+            </div>
+            <div class="col-6 col-sm-6 pr-0">
+              <!-- <input class="form-control" type="text" placeholder="Phone" (keypress)="numberOnly($event)" maxlength="10" formControlName="referalcontactno" [ngClass]="{ 'is-invalid': userForm.controls.referalcontactno.errors }" > -->
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend" hidden>
+                  <span class="input-group-text" id="basic-addon1">{{text}}</span>
+                </div>
+                <input class="form-control" type="text" formControlName="referalcontactno" (keypress)="numberOnly($event)"
+                  maxlength="10" placeholder="Phone" [ngClass]="{ 'is-invalid': userForm.controls.referalcontactno.errors }">
+              </div>
+
+            </div>
+            <!-- <div class="col-1 d-flex flex-wrap align-items-center">
+                                <span *ngIf="userForm.controls.referalcontactno.valid;else errMsg">
+                                  <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+                              </span>
+                              <ng-template #errMsg>
+                                  <img src="assets/images/exclamation.svg" width="16px" height="16px" alt="correct"> 
+                              </ng-template>
+                              </div> -->
+            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+              <div *ngIf="userForm.controls.referalcontactno.errors || userForm.controls.countrycode.errors  else path"
+                class="invalid-feedback col-12 " class="col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                <div *ngIf="userForm.controls.referalcontactno.errors?.required || userForm.controls.countrycode.errors?.required else root"><span
+                    class="error-msg">*</span></div>
+                <ng-template #root>
+                  <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                </ng-template>
+                <!-- <img *ngIf="f.contactno.errors?.minlength || f.contactno.errors?.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+              </div>
+              <ng-template #path>
+                <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+              </ng-template>
+            </div>
+          </div>
+          <!-- </div>  -->
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-10 col-sm-10 pr-0">
+                <input class="form-control" type="text" placeholder="Email" maxlength="50" name="email" formControlName="referalemail"
+                  [ngClass]="{ 'is-invalid':userForm.controls.referalemail.errors }" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$">
+              </div>
+
+              <!-- <div class="col-1 d-flex flex-wrap align-items-center">
+                            <span *ngIf="userForm.controls.referalemail.valid;else errMsg">
+                                  <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+                              </span>
+                              <ng-template #errMsg>
+                                  <img src="assets/images/exclamation.svg" width="16px" height="16px" alt="correct"> 
+                              </ng-template>
+                              </div> -->
+
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                <div *ngIf="userForm.controls.referalemail.errors else emailverify" class="invalid-feedback " class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                  <div *ngIf="userForm.controls.referalemail.errors?.required"><span class="error-msg">*</span></div>
+                  <img *ngIf="userForm.controls.referalemail.errors?.referalemail || userForm.controls.referalemail.errors.pattern"
+                    width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct" />
+                </div>
+                <ng-template #emailverify>
+                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                </ng-template>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-10 col-sm-10 pr-0">
+                <input class="form-control" type="text" placeholder="Chanel Partner Address" maxlength="250" name="address"
+                  formControlName="address" [ngClass]="{ 'is-invalid':userForm.controls.address.errors }">
+              </div>
+              <!-- <div class="col-1 d-flex flex-wrap align-items-center">
+                           <span *ngIf="userForm.controls.address.valid;else errMsg">
+                                 <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+                             </span>
+                             <ng-template #errMsg>
+                                 <img src="assets/images/exclamation.svg" width="16px" height="16px" alt="correct"> 
+                             </ng-template>
+                             </div> -->
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                <div *ngIf="userForm.controls.address.errors  else path" class="invalid-feedback col-12 " class="col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                  <div *ngIf="userForm.controls.address.errors?.required  else root"><span class="error-msg">*</span></div>
+                  <ng-template #root>
+                    <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                  </ng-template>
+                  <!-- <img *ngIf="f.contactno.errors?.minlength || f.contactno.errors?.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+                </div>
+                <ng-template #path>
+                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="row" hidden>
+            <div class="col">
+              <h5>Add Bank Account Details</h5>
+            </div>
+          </div>
+
+          <div class="form-group" hidden>
+            <!-- <div class="row">
+                             <div class="col-10 col-sm-10 pr-0">
+                                   <input class="form-control" type="text" placeholder="Bank account type" name="banckacctype" formControlName="BankAccounttype" >
+                             </div>
+                             <div class="col-1 d-flex flex-wrap align-items-center">
+                             <span *ngIf="userForm.controls.BankAccounttype.valid;else errMsg">
+                                  <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+                              </span>
+                              <ng-template #errMsg>
+                                  <img src="assets/images/exclamation.svg" width="16px" height="16px" alt="correct"> 
+                              </ng-template>
+                              </div>
+                        </div> -->
+            <div class="row">
+              <div class="col-10 col-sm-10 pr-0">
+                <select class="form-control" placeholder="Select Bank Account Type" formControlName="BankAccounttype"
+                  [ngClass]="{ 'is-invalid':userForm.controls.BankAccounttype.errors }">
+                  <option value="" ng-selected="selected">Select Bank Account Type</option>
+                  <option> Current Account</option>
+                  <option> Savings Account</option>
+                  <option> Recurring Deposit Account</option>
+                  <option> Fixed Deposit Account</option>
+                </select>
+              </div>
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                <div *ngIf="userForm.controls.BankAccounttype.errors  else path" class="invalid-feedback col-12 " class="col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                  <div *ngIf="userForm.controls.BankAccounttype.errors?.required  else root"><span class="error-msg">*</span></div>
+                  <ng-template #root>
+                    <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                  </ng-template>
+                  <!-- <img *ngIf="f.contactno.errors?.minlength || f.contactno.errors?.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+                </div>
+                <ng-template #path>
+                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                </ng-template>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group" hidden>
+            <div class="row">
+              <div class="col-10 col-sm-10 pr-0">
+                <input class="form-control" type="text" placeholder="Bank account name" name="bankname" formControlName="bankaccountname"
+                  [ngClass]="{ 'is-invalid':userForm.controls.bankaccountname.errors }">
+              </div>
+              <!-- <div class="col-1 d-flex flex-wrap align-items-center">
+                              <span *ngIf="userForm.controls.bankaccountname.valid;else errMsg">
+                                  <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+                              </span>
+                              <ng-template #errMsg>
+                                  <img src="assets/images/exclamation.svg" width="16px" height="16px" alt="correct"> 
+                              </ng-template>
+                              </div> -->
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                <div *ngIf="userForm.controls.bankaccountname.errors  else path" class="invalid-feedback col-12 " class="col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                  <div *ngIf="userForm.controls.bankaccountname.errors?.required  else root"><span class="error-msg">*</span></div>
+                  <ng-template #root>
+                    <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                  </ng-template>
+                  <!-- <img *ngIf="f.contactno.errors?.minlength || f.contactno.errors?.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+                </div>
+                <ng-template #path>
+                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" hidden>
+            <div class="row">
+              <div class="col-10 col-sm-10 pr-0">
+                <input class="form-control" type="text" placeholder="Bank account number" name="bankaccnumber"
+                  formControlName="bankaccountno" [ngClass]="{ 'is-invalid':userForm.controls.bankaccountno.errors }">
+              </div>
+              <!-- <div class="col-1 d-flex flex-wrap align-items-center">
+                             <span *ngIf="userForm.controls.bankaccountno.valid;else errMsg">
+                                  <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+                              </span>
+                              <ng-template #errMsg>
+                                  <img src="assets/images/exclamation.svg" width="16px" height="16px" alt="correct"> 
+                              </ng-template>
+                              </div> -->
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                <div *ngIf="userForm.controls.bankaccountno.errors  else path" class="invalid-feedback col-12 " class="col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                  <div *ngIf="userForm.controls.bankaccountno.errors?.required  else root"><span class="error-msg">*</span></div>
+                  <ng-template #root>
+                    <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                  </ng-template>
+                  <!-- <img *ngIf="f.contactno.errors?.minlength || f.contactno.errors?.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+                </div>
+                <ng-template #path>
+                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" hidden>
+            <div class="row">
+              <div class="col-10 col-sm-10 pr-0">
+                <input class="form-control" style="text-transform: uppercase" type="text" id="bankIFSCCode" placeholder="Bank IFSC code"
+                  name="ifsccode" formControlName="bankIFSCCode" [ngClass]="{ 'is-invalid':userForm.controls.bankIFSCCode.errors }">
+              </div>
+              <!-- <div class="col-1 d-flex flex-wrap align-items-center">
+                              <span *ngIf="userForm.controls.bankIFSCCode.valid;else errMsg">
+                                  <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct">
+                              </span>
+                              <ng-template #errMsg>
+                                  <img src="assets/images/exclamation.svg" width="16px" height="16px" alt="correct"> 
+                              </ng-template>
+                              </div> -->
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                <div *ngIf="userForm.controls.bankIFSCCode.errors  else path" class="invalid-feedback col-12 " class="col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                  <div *ngIf="userForm.controls.bankIFSCCode.errors?.required  else root"><span class="error-msg">*</span></div>
+                  <ng-template #root>
+                    <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+                  </ng-template>
+                  <!-- <img *ngIf="f.contactno.errors?.minlength || f.contactno.errors?.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg" alt="correct"/> -->
+                </div>
+                <ng-template #path>
+                  <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-10 col-sm-10 pr-0">
+              <a class="pb-3 nav nav-tabs float-right">
+                <button data-toggle="tab" href="#cp-referral" (click)="ChannelPartnerHideandShowList('Channel')" role="tab" type="button" class="btn btn-white ">Discard
+                  and go back</button>
+              </a>
+              <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+            </div>
+          </div>
+
+        </form>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

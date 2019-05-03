@@ -1,0 +1,254 @@
+<form [formGroup]="detailsForm" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+
+    <button type="button" class="close" data-dismiss="modal" (click)="clear()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col">
+          <h2>Add more lead data</h2>
+          <h6 class="pb-1 border-bottom pr-0">Complete rest of the lead information after selecting one of the
+            respective radio option</h6>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col">
+          <ul class="nav" id="lead-data-tab">
+            <li class="active">
+              <!-- href="#individual-tab" -->
+              <a>
+                <div class="form-check form-check-inline" (click)="CompanydetailsHideandShow('individual')">
+                  <input class="form-check-input" formControlName="Addresstype" type="radio" name="Addresstype" id="indi1"
+                    value="Individual">
+                  <label class="form-check-label" for="indi1">Individual</label>
+                </div>
+              </a>
+            </li>
+            <li>
+              <!-- href="#company-tab" -->
+              <a>
+                <div class="form-check form-check-inline" (click)="CompanydetailsHideandShow('Company')" id="">
+                  <input class="form-check-input" formControlName="Addresstype" type="radio" name="Addresstype" id="comp1"
+                    value="Company">
+                  <label class="form-check-label" for="comp1">Company</label>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id='content' class="tab-content">
+        <div id="individual-tab" *ngIf="Companyhide">
+
+          <div class="row">
+            <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+              <input class="form-control" formControlName="Address" type="text" placeholder="Address" maxlength="100"
+                [ngClass]="{ 'is-invalid': f.Address.errors }">
+            </div>
+            <div class="col-1 d-flex flex-wrap align-items-center">
+              <div *ngIf="f.Address.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                <div *ngIf="f.Address.errors?.required"><span class="error-msg">*</span></div>
+                <img *ngIf="f.Address.errors.minlength || f.Address.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg"
+                  alt="correct" />
+              </div>
+              <ng-template #path>
+                <div><img width="16px" height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-10 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+              <input formControlName="Area" class="form-control" type="text" maxlength="150" placeholder="Area"
+                [ngClass]="{ 'is-invalid': f.Area.errors }">
+            </div>
+            <div class="col-10 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+              <input formControlName="city" class="form-control" type="text" maxlength="30" placeholder="city"
+                [ngClass]="{ 'is-invalid': f.city.errors }">
+            </div>
+            <div class="col-10 col-sm-3 col-md-3 col-lg-3 col-xl-3 pr-0">
+              <input formControlName="pincode" class="form-control" type="text" placeholder="Pin" (keypress)="numberOnly($event)"
+                maxlength="6" [ngClass]="{ 'is-pincode': f.Address.errors }">
+            </div>
+            <div class="col-1 d-flex flex-wrap align-items-center">
+              <div *ngIf="f.Area.errors || f.city.errors || f.pincode.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                <div *ngIf="f.Area.errors?.required || f.city.errors?.required || f.pincode.errors?.required else root"><span
+                    class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <div><img width="16px" height="16px" alt="correct" src="assets/images/exclamation.svg" /></div>
+                    </ng-template>
+              </div>
+              <ng-template #path>
+                <div><img width="16px" height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="row" hidden>
+            <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+              <input formControlName="Date" class="form-control" type="date" bsDatepicker placeholder="Date of birth"  [ngClass]="{ 'is-invalid': f.Date.errors }">
+              <!-- <input type="text"
+              class="form-control"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              #dp="bsDatepicker"
+              [bsConfig]="dpConfig"
+              bsDatepicker [(bsValue)]="myDateValue"> -->
+            </div>
+            <div class="col-1 d-flex flex-wrap align-items-center">
+              <!-- <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct" /> -->
+              <div *ngIf="f.Date.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                <div *ngIf="f.Date.errors.required"><span class="error-msg">*</span></div>
+              </div>
+              <ng-template #path>
+                <div><img width="16px" height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div id="company-tab" *ngIf="CompanyShow">
+          <div class="row">
+            <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+              <input class="form-control" formControlName="Companyname" type="text" placeholder="Company name"
+                [ngClass]="{ 'is-invalid': f.Companyname.errors }">
+            </div>
+            <div class="col-1 d-flex flex-wrap align-items-center">
+              <div *ngIf="f.Companyname.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                <div *ngIf="f.Companyname.errors?.required"><span class="error-msg">*</span></div>
+                <img *ngIf="f.Companyname.errors.minlength || f.Companyname.errors.maxlength" width="16px" height="16px"
+                  src="assets/images/exclamation.svg" alt="correct" />
+              </div>
+              <ng-template #path>
+                <div><img width="16px" height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+              <input formControlName="Address" class="form-control" type="text" placeholder="Address" maxlength="100"
+                [ngClass]="{ 'is-invalid': f.Address.errors }">
+            </div>
+            <div class="col-1 d-flex flex-wrap align-items-center">
+              <!-- <img src="assets/images/tick.svg" width="16px" height="16px" alt="correct" /> -->
+              <div *ngIf="f.Address.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                <div *ngIf="f.Address.errors?.required"><span class="error-msg">*</span></div>
+                <img *ngIf="f.Address.errors.minlength || f.Address.errors.maxlength" width="16px" height="16px" src="assets/images/exclamation.svg"
+                  alt="correct" />
+              </div>
+              <ng-template #path>
+                <div><img width="16px" height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+              <input formControlName="Area" class="form-control" type="text" placeholder="Area" maxlength="150"
+                [ngClass]="{ 'is-invalid': f.Address.errors }">
+            </div>
+            <div class="col-10 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+              <input formControlName="city" class="form-control" type="text" placeholder="city" maxlength="30"
+                [ngClass]="{ 'is-invalid': f.Address.errors }">
+            </div>
+            <div class="col-10 col-sm-3 col-md-3 col-lg-3 col-xl-3 pr-0">
+              <input formControlName="pincode" class="form-control" type="text" placeholder="Pin" (keypress)="numberOnly($event)"
+                maxlength="6" [ngClass]="{ 'is-invalid': f.Address.errors }">
+            </div>
+            <div class="col-1 d-flex flex-wrap align-items-center">
+              <div *ngIf="f.Area.errors || f.city.errors || f.pincode.errors else path" class="invalid-feedback" class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                <div *ngIf="f.Area.errors?.required || f.city.errors?.required || f.pincode.errors?.required else root"><span
+                    class="error-msg">*</span></div>
+                    <ng-template #root>
+                      <div><img width="16px" height="16px" alt="correct" src="assets/images/exclamation.svg" /></div>
+                    </ng-template>
+              </div>
+              <ng-template #path>
+                <div><img width="16px" height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col mb-4">
+              <h5 class="pb-1 border-bottom">Add other contacts for this company</h5>
+            </div>
+          </div>
+          <div formArrayName="empdata">
+
+            <div *ngFor="let unit of detailsForm.controls.empdata.controls; let i=index;trackBy: trackByFn" [formGroupName]="i">
+
+              <div class="row">
+
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 pr-0">
+                  <input formControlName="fullname" class="form-control" type="text" placeholder="Fullname" (keypress)="CharactersOnly($event)">
+                </div>
+
+
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 pr-0">
+                  <input formControlName="email" class="form-control" type="text" placeholder="Email">
+                </div>
+
+
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 pr-0">
+                  <input formControlName="mobileno" (keypress)="numberOnly($event)" maxlength="10" class="form-control"
+                    type="text" placeholder="Mobile">
+                </div>
+
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12 pr-0">
+                  <input formControlName="Desgination" class="form-control" type="text" (keypress)="CharactersOnly($event)"
+                    placeholder="Desgination">
+                </div>
+
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center">
+                  <div class="input-group-prepend">
+                    <div (click)="removeUnit(i)" style="cursor:pointer;">
+                      <img width="10px" height="10px" alt="correct" src="assets/images/close-button.png" />
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-11 pr-0 text-right">
+              <button type="button" class="btn button-sm" (click)="addUnit()" *ngIf="detailsForm.controls.empdata.controls.length <=3">
+                <img src="assets/images/add-active.svg" width="16px" height="16px" alt="remove" class="mr-2 mb-1" />Add
+                contact</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col-11 pr-0 text-right">
+
+            <button type="button" type="submit" class="btn btn-white px-4">Add</button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</form>
+
+<!-- ===================================================================================== required js ========================================================================================= -->
+
+
+<!-- <script>
+    $('#lead-data-tab li').click(function (e) {
+   // e.preventDefault();
+      $(this).find('a').tab('show');
+     
+  });
+  </script>
+<style>
+	#lead-data-tab a {
+		text-decoration:none;
+		color:#111;
+	}
+</style>	 -->

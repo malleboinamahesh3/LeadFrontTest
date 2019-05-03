@@ -1,0 +1,265 @@
+<div class="modal-header">
+
+  <button type="button" class="close" (click)="clear()" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col border-bottom">
+        <h2>{{title}}</h2>
+        <h6>Email to join LeadFront will be sent, on joining they will have access to assigned leads</h6>
+      </div>
+    </div>
+
+    <form [formGroup]="Inviteform" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+          <input class="form-control" type="text" placeholder="Full Name" maxlength="100" formControlName="employeename" (keypress)="CharactersOnly($event)"
+            [ngClass]="{ 'is-invalid': f.employeename.errors }" required>
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+
+          <div *ngIf="f.employeename.errors else Invitepath">
+
+            <div *ngIf="f.employeename.errors.required">
+              <span class="error-msg">*</span></div>
+
+            <img *ngIf="f.employeename.errors.minlength || f.employeename.errors.maxlength" width="20px" height="20px"
+              src="assets/images/exclamation.svg" alt="correct" />
+          </div>
+          <ng-template #Invitepath>
+            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center"><img width="16px"
+                height="16px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+          <input type="text" class="form-control" placeholder="Email" maxlength="50" formControlName="email" [ngClass]="{ 'is-invalid':f.email.errors }"
+            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$">
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.email.errors else emailverify" class="invalid-feedback " class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.email.errors?.required"><span class="error-msg">*</span></div>
+            <img *ngIf="f.email.errors?.email || f.email.errors.pattern" width="20px" height="20px" src="assets/images/exclamation.svg"
+              alt="correct" />
+          </div>
+          <ng-template #emailverify>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 col-sm-3 col-md-2 col-lg-2 col-xl-2 pr-0">
+          <div class="form-group">
+            <select class="form-control " placeholder="Country" formControlName="country" (change)="selectdrop($event)"
+              [ngClass]="{ 'is-invalid': f.country.errors }">
+              <option value="" ng-selected="selected">Country</option>
+              <option *ngFor="let country of CountryList;trackBy: trackByFn" [value]="country.name"> {{country.name}} - ({{country.code}})</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-10 col-sm-8 col-md-9 col-lg-9 col-xl-9 pr-0">
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend" hidden>
+              <span class="input-group-text prepend-cst" id="basic-addon1">{{text}}</span>
+            </div>
+            <input class="form-control" type="text" formControlName="mobileno" (keypress)="numberOnly($event)"
+              maxlength="10" placeholder="Mobile" [ngClass]="{ 'is-invalid': f.mobileno.errors }">
+          </div>
+
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.country.errors || f.mobileno.errors else path" class="invalid-feedback col-12 " class="col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.country.errors?.required || f.mobileno.errors?.required else root"><span class="error-msg">*</span></div>
+            <ng-template #root>
+              <img width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+            </ng-template>
+          </div>
+          <ng-template #path>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+          <div class="form-group">
+            <select class="form-control" placeholder="Role" formControlName="roleid" [ngClass]="{ 'is-invalid': f.roleid.errors }">
+              <option value="" ng-selected="selected">Role</option>
+              <option *ngFor="let roleid  of roles; trackBy: trackByFn" [value]="roleid.id"> {{roleid.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.roleid.errors else verify" class="invalid-feedback " class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.roleid.errors?.required"><span class="error-msg">*</span></div>
+          </div>
+          <ng-template #verify>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+          <div class="form-group">
+            <select class="form-control" placeholder="Role" formControlName="reportingto" [ngClass]="{ 'is-invalid': f.reportingto.errors }">
+              <option value="" ng-selected="selected">Reporting Manager</option>
+              <option *ngFor="let reportingto  of reportingmanagers;trackBy: trackByFn" [value]="reportingto.employeeid">
+                {{reportingto.employeename}}</option>
+
+            </select>
+          </div>
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.reportingto.errors else verify" class="invalid-feedback " class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.reportingto.errors?.required"><span class="error-msg">*</span></div>
+          </div>
+          <ng-template #verify>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-8 col-lg-9 col-md-9 col-sm-9 col-8">
+          <div class="form-group">
+            <select class="form-control" placeholder="Role" formControlName="designationid" [ngClass]="{ 'is-invalid': f.designationid.errors }">
+              <option value="" ng-selected="selected">Desgination</option>
+              <option *ngFor="let designationid  of designationlist" [value]="designationid.designationid">
+                {{designationid.designationname}}</option>
+
+            </select>
+          </div>
+
+        </div>
+        <div class="col-xl-3 col-lg-2 col-md-2 col-sm-2 col-3 px-0 text-center" data-toggle="modal" data-target="#designation">
+
+          <div class="custom-btn pt-2"><img class="mr-2" width="20px" height="20px" src="assets/images/select-active.svg">Desgination</div>
+
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.designationid.errors else verify" class="invalid-feedback " class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+            <div *ngIf="f.designationid.errors?.required"><span class="error-msg">*</span></div>
+          </div>
+          <ng-template #verify>
+            <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 col-sm-11 col-md-11 col-lg-11 col-xl-11 pr-0">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"> ₹ </span>
+            </div>
+            <input class="form-control" type="text" formControlName="ctc" (keypress)="numberOnly($event)" placeholder="CTC in lakhs"
+              [ngClass]="{ 'is-invalid': f.ctc.errors }">
+          </div>
+
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.ctc.errors else Invitepath">
+
+            <div *ngIf="f.ctc.errors.required">
+              <span class="error-msg">*</span></div>
+
+            <img *ngIf="f.ctc.errors.maxlength" width="20px" height="20px" src="assets/images/exclamation.svg" alt="correct" />
+          </div>
+          <ng-template #Invitepath>
+            <img width="20px" height="20px" alt="correct" src="assets/images/tick.svg">
+          </ng-template>
+        </div>
+      </div>
+
+     
+
+      <div class="row">
+        <div class="col-11 pr-0">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text prepend-cst">DOB</span>
+            </div>
+            <input type="text"
+            formControlName="employeeDOB"
+            class="form-control pointer-cst"
+            [minDate]="minDate"
+            [maxDate]="maxDate" [bsConfig]="dpConfig"
+            #dp="bsDatepicker"  placement="top left" placeholder="{{dateplaceholderformat}}" readonly
+            bsDatepicker  [ngClass]="{ 'is-invalid': f.employeeDOB.errors }">
+          </div>
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.employeeDOB.errors else root">
+                      <div *ngIf="f.employeeDOB.errors.required">
+                        <span class="error-msg">*</span></div>
+                    </div>
+                    <ng-template #root>
+                      <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center"> -->
+                        <img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" />
+                      <!-- </div> -->
+                    </ng-template>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-11 pr-0">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text prepend-cst"> DOJ </span>
+            </div>
+            <input type="text"
+            formControlName="employeeDOJ"
+            class="form-control pointer-cst"
+            [minDate]="minDate"
+            [maxDate]="maxDate" [bsConfig]="dpConfig"
+            #dp="bsDatepicker"  placement="top left" placeholder="{{dateplaceholderformat}}" readonly
+            bsDatepicker  [ngClass]="{ 'is-invalid': f.employeeDOJ.errors }" (blur)="compareTwoDates()"> 
+          
+          </div>
+        </div>
+        <div class="col-1 d-flex flex-wrap align-items-center">
+          <div *ngIf="f.employeeDOJ.errors else path">
+                      <div *ngIf="f.employeeDOJ.errors.required">
+                        <span class="error-msg">*</span></div>
+                    </div>
+                    <ng-template #path>
+                      <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 pr-0 d-flex flex-wrap align-items-center"> -->
+                        <img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" />
+                        <!-- </div> -->
+                    </ng-template>
+        </div> 
+      </div>
+      <div *ngIf="error.isError" class="alert alert-danger">
+        {{ error.errorMessage }}
+     </div>
+      <div class="row">
+        <div class="col-11 pr-0 text-right">
+          <button type="button" class="btn btn-white" (click)="Cancel()">Cancel</button>
+          <button type="submit" class="btn btn-blue ml-3">Invite</button>
+        </div>
+      </div>
+    </form>
+
+
+  </div>
+</div>
+<!------Designation Modal------->
+<div class="modal fade pl-0" id="designation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-designation (DesignationListUpdate)="UpdateDesignation()"></app-designation>
+    </div>
+
+  </div>
+</div>

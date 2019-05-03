@@ -1,0 +1,589 @@
+<!-- ============================================================ modal SoldBusinessDealHistory start =============================================================== -->
+<div class="modal-header">
+
+  <button type="button" class="close" data-dismiss="modal" (click)='CloseSoldModel()' aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+
+  <div class="container">
+
+    <div class="row mb-4">
+
+      <div class="col border-bottom">
+        <h2>Sold business deal</h2>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-xl-3 col-lg-3 col-12 bg-gray border overflow-y-auto height-450">
+        <app-freshbusiness (valueChange)='displayCounter($event)' [funneldata]="popupdataofFunnel"
+          (refreshfunnel)="RefreshFunnelAfterLeadModify($event)"></app-freshbusiness>
+          <!-- <app-freshbusiness (valueChange)='displayCounter($event)' [funneldata]="popupdataofFunnel" (refreshfunnel)="RefreshFunnelAfterLeadModify($event)"></app-freshbusiness> -->
+          <!-- <app-leadedit (valueChange)='displayCounter($event)' (refreshfunnel)="RefreshFunnelAfterLeadModify($event)"></app-leadedit> -->
+      </div>
+      <!-- ========================================================================== column-1-end =================================================================== -->
+
+      <div class="col-xl-9 col-lg-9 col-12 border pt-2">
+
+        <nav>
+
+          <div class="nav nav-tabs modal-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="deal-details-tab" data-toggle="tab" href="#deal-details" role="tab"
+              aria-controls="deal-details" aria-selected="true">Deal completed</a>
+            <a class="nav-item nav-link" id="history-details-tab" data-toggle="tab" href="#history-details" role="tab"
+              aria-controls="history-details" aria-selected="false">History</a>
+          </div>
+
+        </nav>
+
+        <div class="tab-content" id="nav-tabContent">
+
+          <div class="tab-pane fade show active" id="deal-details" role="tabpanel" aria-labelledby="deal-details-tab">
+
+
+
+            <form [formGroup]="soldform" (ngSubmit)="onSubmit()">
+
+              <div class="overflow-y-auto height-350 mt-4">
+
+                <div class="row px-4">
+
+                  <h3>Deal details</h3>
+
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="mr-0 mr-sm-3"><label class="RL15">Actual deal value</label>
+
+
+                    <!-- <input class="form-control m-0" type="text" placeholder="₹ 2,200,000"> -->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text prepend-cst" id="basic-addon1"> {{symbol}} </span>
+                      </div>
+                      <input appMycurrencyFormatter type="text" class="form-control form-control-cst" formControlName="dealvalue"
+                        (keypress)="numberOnly($event)" maxlength="10" placeholder=""
+                        [ngClass]="{ 'is-invalid': f.dealvalue.errors }" readonly>
+                    </div>
+
+                  </div>
+
+                  <div><label class="RL15">Final deal value</label>
+
+                    <!-- <input class="form-control m-0" type="text" placeholder="₹"> -->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text prepend-cst" id="basic-addon1"> {{symbol}} </span>
+                      </div>
+                      <input appMycurrencyFormatter type="text" class="form-control form-control-cst" formControlName="finaldealvalue"
+                        [readonly]="!childmessage" (blur)="CheckFinalDealAmount($event)" (keypress)="numberOnly($event)" maxlength="10" placeholder=""
+                        [ngClass]="{ 'is-invalid': f.finaldealvalue.errors }">
+                    </div>
+                  </div>
+
+                  <!-- <div *ngIf="f.dealvalue.errors || f.finaldealvalue.errors else path" class="invalid-feedback" hidden class="col-12 col-sm-1 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                      <div><span class="error-msg">*</span></div>
+                    </div>
+                    <ng-template #path>
+                        <div><img width="20px" height="20px" alt="correct" src="assets/images/tick.svg" /></div>
+                      </ng-template> -->
+                  <!-- | currency :'INR': 'symbol' : fractionSize  -->
+                </div>
+
+                <div class="row px-4 pt-3">
+
+                  <h3>Payments</h3>&nbsp;<p class="QR14 mb-2">Total received:
+                    {{received | mycurrency}}, Receivable:
+                    {{receivable | mycurrency}}</p>
+
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="col-12 px-0">
+
+                    <table class="table table-responsive min-width200" formArrayName="PaymentsJSON">
+                      <thead>
+                        <tr>
+                          <th class="RR15 text-dark">Date</th>
+                          <th class="RR15 text-dark">{{symbol}} Amount paid</th>
+                          <th class="RR15 text-dark">Payment mode</th>
+                          <th class="RR15 text-dark">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let m of paymentarray;let n=index">
+                            <td hidden>
+                                <span class="RL15">{{m.id}}</span>
+                              </td>
+                          <td *ngIf="paymenthide">
+                            <span class="RL15">{{m.receiptdate | mydateformat}}</span>
+                          </td>
+                          <td *ngIf="paymenthide">
+                            <span class="RL15">{{m.AmountReceived | mycurrency}}</span>
+                          </td>
+                          <td *ngIf="paymenthide">
+                            <span class="RL15">{{m.modeofpayment}}</span>
+                          </td>
+                          <td *ngIf="paymenthide">
+                            <span class="RL15">{{m.chequenumber}}</span>
+                          </td>
+                          <td *ngIf="paymenthide">
+                            <div class="input-group-prepend">
+                              <div (click)="removepayment(m)" style="cursor:pointer;">
+                                <img width="16px" height="16px" alt="correct" src="assets/images/delete.svg" />
+                              </div>
+                            </div>
+
+                          </td>
+
+                        </tr>
+
+                        <tr *ngFor="let unit of soldform.controls.PaymentsJSON.controls; let i=index;trackBy: trackByFn"
+                          [formGroupName]="i">
+
+                          <td *ngIf="paymentshow">
+
+
+                            <input type="text" class="form-control" [minDate]="minDate" readonly [maxDate]="maxDate"
+                              #dp="bsDatepicker" [bsConfig]="dpConfig" formControlName="receiptdate" bsDatepicker>
+                          </td>
+
+                          <td *ngIf="paymentshow">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text prepend-cst" id="basic-addon1"> {{symbol}} </span>
+                              </div>
+                              <input appMycurrencyFormatter type="text" class="form-control form-control-cst" maxlength="10" (keypress)="numberOnly($event)"
+                                formControlName="AmountReceived" (blur)="onBlurMethod()" maxlength="10" placeholder="">
+                            </div>
+                          </td>
+                          <td *ngIf="paymentshow">
+                            <select class="form-control" placeholder="Payment mode" formControlName="modeofpayment">
+                              <option value="" ng-selected="selected">Payment mode</option>
+                              <option *ngFor="let modeofpayment of paymentmodes ;trackBy: trackByFn"
+                                [value]="modeofpayment.name">
+                                {{modeofpayment.name}}</option>
+                            </select>
+                          </td>
+                          <td *ngIf="paymentshow">
+                            <input class="form-control" type="text" formControlName="chequenumber"
+                              (keypress)="SpecialcharactersOnly($event)" maxlength="20">
+                          </td>
+                          <td>
+                              <button type="button" class="btn button-sm" (click)="addUnit()"
+                                *ngIf="paymentshow"><img src="assets/images/add-more.svg" width="16px" height="16px" alt="remove"
+                                class="mr-2 mb-1" />
+                                 </button>
+                            </td>
+                        </tr>
+
+                        <!-- <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            <button type="button" class="btn button-sm" (click)="addUnit()"
+                              *ngIf="soldform.controls.PaymentsJSON.controls.length < 4"><img src="assets/images/add-more.svg" width="16px" height="16px" alt="remove"
+                              class="mr-2 mb-1" />
+                               </button>
+                          </td>
+                        </tr> -->
+
+
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                </div>
+
+                <!-- ========================================================================== table1-end =============================================================== -->
+                <div class="row px-4 pt-3">
+
+                  <h3>Lead bank details</h3>
+
+                </div>
+
+                <div class="row px-4">
+
+                  <div class="col-12 px-0">
+
+                    <table class="table table-responsive min-width200" formArrayName="leadbankjson">
+
+                      <thead>
+
+                        <tr>
+
+                          <th class="RR15 text-dark">Bank account type</th>
+                          <th class="RR15 text-dark">Bank account name</th>
+                          <th class="RR15 text-dark">Bank account number</th>
+                          <th class="RR15 text-dark">Bank IFSC code</th>
+
+                        </tr>
+
+                      </thead>
+
+                      <tbody>
+
+                       
+
+
+                        <tr *ngFor="let unit of soldform.controls.leadbankjson.controls; let j=index;trackBy: trackByFn"
+                          [formGroupName]="j">
+
+                          <td>
+                            <select class="form-control" placeholder="Account type" formControlName="BankAccounttype">
+                              <option value="" ng-selected="selected">Bank Account type</option>
+                              <option *ngFor="let BankAccounttype of accounttypes ;trackBy: trackByFn"
+                                [value]="BankAccounttype.name">
+                                {{BankAccounttype.name}}</option>
+                            </select>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" formControlName="bankaccountname"
+                              (keypress)="CharactersOnly($event)" maxlength="130" placeholder="">
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" formControlName="bankaccountno"
+                              (keypress)="numberOnly($event)" minlength="12" maxlength="16" placeholder="">
+                          </td>
+                          <td>
+                            <input class="form-control" type="text" style="text-transform: uppercase" formControlName="bankIFSCCode" maxlength="11"
+                              (keypress)="IFSC($event)" placeholder="">
+                          </td>
+                          <td *ngIf="soldform.controls.leadbankjson.controls.length > 1">
+                            <div (click)="removebankdetails(j)" style="cursor:pointer;">
+                              <img width="16px" height="16px" alt="correct" src="assets/images/delete.svg" />
+                            </div>
+                          </td>
+                          <!-- <td *ngIf="soldform.controls.leadbankjson.controls.length == 1">
+                            <img width="16px" height="16px" (click)="clearbankdetails()" alt="correct"
+                              src="assets/images/delete.svg" />
+                          </td> -->
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            <!-- <button type="button" class="btn button-sm" (click)="addbankdetails()"
+                              *ngIf="soldform.controls.leadbankjson.controls.length < 4">
+                              <img src="assets/images/add-more.svg" width="16px" height="16px" alt="remove"
+                                class="mr-2 mb-1" /></button> -->
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
+                <!-- ======================================================================== table2-end ================================================== -->
+                <div class="row px-4 pt-3" *ngIf="channelhide">
+
+                  <h3 class="mb-0">Channel partner ({{channelname}}) remuneration/commission</h3>
+                  <div class="col px-0 text-right">
+
+                    <div *ngIf="Editbuttonshow">
+                      <button type="button" class="btn button-sm m-0" (click)="EditdetailsHideandShow('edit')">
+                        <img width="16px" height="16px" class="mr-2" src="assets/images/more-active.svg" />Add /
+                        edit</button>
+                    </div>
+                    <div *ngIf="EditCancelbuttonshow">
+                      <button type="button" class="btn button-sm m-0" (click)="EditdetailsHideandShow('cancel')">
+                        <img width="16px" height="16px" class="mr-2" src="assets/images/more-active.svg" />Cancel
+                        edit</button>
+                    </div>
+                  </div>
+
+
+                  <div id='content' class="tab-content">
+                    <div id="individual-tab" *ngIf="Edithide">
+                      <p class="RL15 mb-0">Account no.: {{bankaccountno}}, Account name: {{bankaccountname}}, Account
+                        type: {{bankaccounttype}},
+                        IFSC
+                        code: {{bankifsccode}}</p>
+                      <!-- <div class="col-12 px-0">
+                            <table class="table table-responsive min-width200">
+                              <tr>
+                                <td>Account no.: {{bankaccountno.value}}</td>
+                                <td>Account name: {{bankaccountname.value}}</td>
+                                <td>Account type: {{BankAccounttype.value}}</td>
+                                <td>IFSC code: {{bankIFSCCode.value}}</td>
+                              </tr>
+                            </table>
+                          </div> -->
+                    </div>
+                    <div id="individual-tab" *ngIf="Edithidedata">
+                      <p class="RL15 mb-0">Please enter Channel partner ({{channelname}}) bank details</p>
+                     
+                    </div>
+                    <div id="company-tab" *ngIf="EditShow">
+
+                      <div class="row" formArrayName="CPBankjson">
+                        <table class="table table-responsive min-width200">
+                          <tr *ngFor="let unit of soldform.controls.CPBankjson.controls; let l=index;trackBy: trackByFn"
+                            [formGroupName]="l">
+                            <td>
+                              <input type="text" class="form-control" formControlName="bankaccountno"
+                                (keypress)="numberOnly($event)" minlength="12" maxlength="16" placeholder="Account no.">
+                            </td>
+                            <td>
+                              <input type="text" class="form-control" formControlName="bankaccountname" maxlength="50"
+                                (keypress)="CharactersOnly($event)" maxlength="130" placeholder="Account name">
+                            </td>
+                            <td>
+                              <select class="form-control" placeholder="Account type" formControlName="BankAccounttype">
+                                <option value="" ng-selected="selected">Bank Account type</option>
+                                <option *ngFor="let BankAccounttype of accounttypes ;trackBy: trackByFn"
+                                  [value]="BankAccounttype.name">
+                                  {{BankAccounttype.name}}</option>
+                              </select>
+                            </td>
+                            <td>
+                              <input class="form-control" type="text" style="text-transform: uppercase" formControlName="bankIFSCCode"
+                                placeholder="IFSC code" (keypress)="IFSC($event)" maxlength="11">
+                            </td>
+                            <td>
+                              <div class="col-12 col-sm-1 col-md-3 col-lg-2 col-xl-2 pl-xl-0 pl-lg-0 pl-md-0 pl-sm-0">
+                                <div><span class="error-msg">*</span></div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="row px-4">
+                  <div class="col-12 px-0">
+                    <table class="table table-responsive min-width200" formArrayName="CPBankjson">
+                      <tr>
+                        <td class="RR15 text-dark">
+
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div> -->
+
+                <div class="row px-4">
+
+                  <div class="col-12 px-0">
+
+                    <table class="table table-responsive min-width200" formArrayName="CPPaymentsjson"
+                      *ngIf="channelhide">
+
+                      <thead>
+
+                        <tr>
+
+                          <th class="RR15 text-dark">Date</th>
+                          <th class="RR15 text-dark">{{symbol}} Amount paid</th>
+                          <th class="RR15 text-dark">Payment mode</th>
+                          <th class="RR15 text-dark">Details</th>
+
+                        </tr>
+
+                      </thead>
+
+                      <tbody>
+                        <tr *ngFor="let m of CPpaymentarray;let n=index">
+                          <td hidden>
+                              <span class="RL15">{{m.id}}</span>
+                            </td>
+                        <td *ngIf="CPpaymenthide">
+                          <span class="RL15">{{m.receiptdate | mydateformat}}</span>
+                        </td>
+                        <td *ngIf="CPpaymenthide">
+                          <span class="RL15">{{m.AmountReceived | mycurrency}}</span>
+                        </td>
+                        <td *ngIf="CPpaymenthide">
+                          <span class="RL15">{{m.modeofpayment}}</span>
+                        </td>
+                        <td *ngIf="CPpaymenthide">
+                          <span class="RL15">{{m.chequenumber}}</span>
+                        </td>
+                        <td *ngIf="CPpaymenthide">
+                          <div class="input-group-prepend">
+                            <div (click)="removeCPpayment(m)" style="cursor:pointer;">
+                              <img width="16px" height="16px" alt="correct" src="assets/images/delete.svg" />
+                            </div>
+                          </div>
+
+                        </td>
+
+                      </tr>
+                        <tr
+                          *ngFor="let unit of soldform.controls.CPPaymentsjson.controls; let k=index;trackBy: trackByFn"
+                          [formGroupName]="k">
+
+
+
+                          <td *ngIf="CPpaymentshow">
+                            <input type="text" class="form-control" readonly [minDate]="minDate" [maxDate]="maxDate"
+                              #dp="bsDatepicker" [bsConfig]="dpConfig" formControlName="receiptdate" bsDatepicker>
+                          </td>
+                          <td *ngIf="CPpaymentshow">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text prepend-cst" id="basic-addon1"> {{symbol}} </span>
+                              </div>
+                              <input appMycurrencyFormatter type="text" class="form-control form-control-cst" formControlName="AmountReceived"
+                                (keypress)="numberOnly($event)" maxlength="10" placeholder="">
+                            </div>
+                          </td>
+                          <td *ngIf="CPpaymentshow">
+
+                            <select class="form-control" placeholder="Payment mode" formControlName="modeofpayment">
+                              <option value="" ng-selected="selected">Payment mode</option>
+                              <option *ngFor="let modeofpayment of paymentmodes ;trackBy: trackByFn"
+                                [value]="modeofpayment.name">
+                                {{modeofpayment.name}}</option>
+                            </select>
+
+                          </td>
+                         <td *ngIf="CPpaymentshow"><input class="form-control" type="text" formControlName="chequenumber"
+                              (keypress)="SpecialcharactersOnly($event)" maxlength="20"></td>
+                           <!-- <td *ngIf="soldform.controls.CPPaymentsjson.controls.length > 1">
+                            <div (click)="removechannel(k)" style="cursor:pointer;">
+                              <img width="16px" height="16px" alt="correct" src="assets/images/delete.svg" />
+                            </div>
+                          </td>
+
+                          <td *ngIf="soldform.controls.CPPaymentsjson.controls.length == 1">
+                            <img width="16px" height="16px" (click)="clearchannel()" alt="correct"
+                              src="assets/images/delete.svg" />
+                          </td> -->
+
+                          <td *ngIf="CPpaymentshow">
+                            <button type="button" class="btn button" (click)="addchannel()"
+                              >
+                              <img src="assets/images/add-more.svg" width="16px" height="16px" alt="remove"
+                                class="mr-2 mb-1" /></button>
+                          </td>
+
+                        </tr>
+
+                        <!-- <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            <button type="button" class="btn button" (click)="addchannel()"
+                              *ngIf="soldform.controls.CPPaymentsjson.controls.length < 4">
+                              <img src="assets/images/add-more.svg" width="16px" height="16px" alt="remove"
+                                class="mr-2 mb-1" /></button>
+                          </td>
+                        </tr> -->
+
+                      </tbody>
+
+                    </table>
+
+
+
+                    <table class="table table-responsive min-width200">
+
+                      <tbody>
+                        <tr>
+
+                          <td>
+                            <h3 class="mt-4">Change deal status</h3>
+                          </td>
+
+                          <td>
+
+                            <select class="form-control mt-4" placeholder="Deal Status" formControlName="stageid"
+                              (change)="selectdrop($event)">
+                              <option value="" ng-selected="selected">Deal Status</option>
+                              <option *ngFor="let stageid of deallist ;trackBy: trackByFn" [value]="stageid.stageid">
+                                {{stageid.stagename}}</option>
+                            </select>
+
+                          </td>
+
+                          <td colspan="3"><input class="form-control mb-0 mt-4" type="text" maxlength="500"
+                              *ngIf="reasonshow" formControlName="reasonforcancel" placeholder="Reason for cancelation">
+                          </td>
+
+                        </tr>
+
+                      </tbody>
+
+                    </table>
+
+
+
+                  </div>
+
+                  <div class="row px-4 py-3">
+
+                    <div class="col px-0">
+
+                      <button type="button" (click)='close()' class="btn btn-white my-0 mr-2 px-4">Clear</button>
+
+                      <button type="submit"  class="btn btn-blue my-0 px-4">Save</button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <!-- ========================================================= tabpanel-1-end =============================================================== -->
+
+          <div class="tab-pane fade" id="history-details" role="tabpanel" aria-labelledby="history-details-tab">
+
+
+            <app-followuphistory></app-followuphistory>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ============================================================ modal SoldBusinessDealHistory end =============================================================== -->
+<div class="modal fade pl-0" id="leadSource" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<app-source (OutputToparent)="getsourcedata($event)"></app-source>
+</div>
+
+</div>
+</div>

@@ -1,0 +1,166 @@
+<div class="modal-header">
+
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+
+  <div class="container">
+
+      <div class="row mb-4">
+
+          <div class="col-8 custom-modal-sm">
+
+              <div class="row border-bottom mb-3">
+
+                  <div class="col-12">
+                      <h2>Suspend team member</h2>
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12">
+
+                      <p class="RL13 text-black-50 mb-0">Full name</p>
+                      <p class="RL15 mb-0">{{employeename}}</p>
+
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12">
+
+                      <p class="RL13 text-black-50 mb-0">Email</p>
+                      <p class="RL15 mb-0">{{email}}</p>
+
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12">
+
+                      <p class="RL13 text-black-50 mb-0">Mobile</p>
+                      <p class="RL15 mb-0">{{countrycode}}-{{mobileno}}</p>
+
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12">
+
+                      <p class="RL13 text-black-50 mb-0">Role</p>
+                      <p class="RL15 mb-0">{{rolename}}</p>
+
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12">
+
+                      <p class="RL13 text-black-50 mb-0">Reporting manager</p>
+                      <p class="RL15 mb-0">{{reportingto}}</p>
+
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12">
+
+                      <p class="RL13 text-black-50 mb-0">Designation</p>
+                      <p class="RL15 mb-0">{{designationname}}</p>
+
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12">
+
+                      <p class="RL13 text-black-50 mb-0">Annual CTC</p>
+                      <p class="RL15 mb-0">{{ctc}}</p>
+
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12">
+
+                      <p class="RL13 text-black-50 mb-0">Date of joining</p>
+                      <p class="RL15 mb-0">{{employeedoj | date: 'dd MMM yyyy'}}</p>
+
+                  </div>
+
+              </div>
+
+              <div class="row py-2">
+
+                  <div class="col-12 col-lg-3 pr-0 mb-4 mb-lg-0">
+
+                      <div class="pl-4">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                          <label class="form-check-label" for="exampleCheck1">Transfer leads to</label>
+                      </div>
+
+                  </div>
+
+                  <div class="col-12 col-lg-9">
+
+                      <div class="dropdown">
+
+                          <button class="btn btn-white dropdown-toggle m-0 text-left w-100" type="button"
+                              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                              Veera: Distribute leads equally within this team
+                          </button>
+
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="#">Across all teams</a>
+                              <a class="dropdown-item" href="#">Veera: Distribute leads equally
+                                  within this team</a>
+                              <a class="dropdown-item" href="#">Manager 2: distribute leads equally
+                                  within this team</a>
+                              <a class="dropdown-item" href="#">Manager 3: distribute leads equally
+                                  within this team</a>
+                          </div>
+
+                      </div>
+
+                  </div>
+
+              </div>
+
+              <div class="row pt-3">
+
+                  <div class="col-12 text-sm-right">
+
+                      <button type="button" class="btn btn-white mt-0 mr-2 mb-3 mb-sm-0 px-4">Cancel</button>
+                      <button type="button" class="btn btn-blue my-0 px-4">Suspend</button>
+
+                  </div>
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+</div>
